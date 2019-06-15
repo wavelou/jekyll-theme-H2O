@@ -1,905 +1,382 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head><meta name="generator" content="Hexo 3.8.0">
-  <meta charset="utf-8">
-  
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="油光发亮浪打浪">
+    <meta name="keyword" content>
+    <link rel="shortcut icon" href="/img/favicon.ico">
 
-  
-  <title>waVeLou的Blog</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="too young，too simple，sometimes naive">
-<meta name="keywords" content="wavelou java BigData">
-<meta property="og:type" content="website">
-<meta property="og:title" content="waVeLou的Blog">
-<meta property="og:url" content="https://wavelou.github.io/index.html">
-<meta property="og:site_name" content="waVeLou的Blog">
-<meta property="og:description" content="too young，too simple，sometimes naive">
-<meta property="og:locale" content="default">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="waVeLou的Blog">
-<meta name="twitter:description" content="too young，too simple，sometimes naive">
-  
-    <link rel="alternate" href="/atom.xml" title="waVeLou的Blog" type="application/atom+xml">
-  
-  
-    <link rel="icon" href="/favicon.png">
-  
-  
-    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
-  
-  <link rel="stylesheet" href="/css/style.css">
+    <title>
+        
+        WaveLou的博客 | WaveLou&#39;s Blog
+        
+    </title>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/aircloud.css">
+    <link rel="stylesheet" href="/css/gitment.css">
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
 </head>
-</html>
+
 <body>
-  <div id="container">
-    <div id="wrap">
-      <header id="header">
-  <div id="banner"></div>
-  <div id="header-outer" class="outer">
-    <div id="header-title" class="inner">
-      <h1 id="logo-wrap">
-        <a href="/" id="logo">waVeLou的Blog</a>
-      </h1>
-      
-    </div>
-    <div id="header-inner" class="inner">
-      <nav id="main-nav">
-        <a id="main-nav-toggle" class="nav-icon"></a>
-        
-          <a class="main-nav-link" href="/">Home</a>
-        
-          <a class="main-nav-link" href="/archives">Archives</a>
-        
-      </nav>
-      <nav id="sub-nav">
-        
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
-        
-        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
-      </nav>
-      <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://wavelou.github.io"></form>
-      </div>
-    </div>
-  </div>
-</header>
-      <div class="outer">
-        <section id="main">
-  
-    <article id="post-数据库事务隔离级别：分析脏读 &amp; 不可重复读 &amp; 幻读" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/05/30/数据库事务隔离级别：分析脏读 & 不可重复读 & 幻读/" class="article-date">
-  <time datetime="2019-05-29T16:00:00.000Z" itemprop="datePublished">2019-05-30</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/05/30/数据库事务隔离级别：分析脏读 & 不可重复读 & 幻读/">数据库事务隔离级别 - 分析脏读 &amp; 不可重复读 &amp; 幻读</a>
-    </h1>
-  
 
-      </header>
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i> too young，too simple，sometimes naive </i>
+</div>
+
+<div class="index-container">
     
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="数据库事务隔离级别-分析脏读-amp-不可重复读-amp-幻读"><a href="#数据库事务隔离级别-分析脏读-amp-不可重复读-amp-幻读" class="headerlink" title="数据库事务隔离级别 - 分析脏读 &amp; 不可重复读 &amp; 幻读"></a><a href="https://www.cnblogs.com/balfish/p/8298296.html" target="_blank" rel="noopener">数据库事务隔离级别 - 分析脏读 &amp; 不可重复读 &amp; 幻读</a></h1><p><strong>阅读目录</strong></p>
-<ul>
-<li><a href="https://www.cnblogs.com/balfish/p/8298296.html#_label0" target="_blank" rel="noopener">一 数据库事务的隔离级别</a></li>
-<li><a href="https://www.cnblogs.com/balfish/p/8298296.html#_label1" target="_blank" rel="noopener">二 不同事务级别带来的并发问题</a></li>
-<li><a href="https://www.cnblogs.com/balfish/p/8298296.html#_label2" target="_blank" rel="noopener">三 例子比较不可重复读和幻读</a></li>
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar ">
+            <img src="/images/avatar.jpg">
+        </div>
+        <div class="name">
+            <i>Wave Lou</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li class="active">
+                <a href="/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>主页</span>
+                </a>
+            </li>
+            <li>
+                <a href="/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>标签</span>
+                </a>
+            </li>
+            <li>
+                <a href="/archives">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>存档</span>
+                </a>
+            </li>
+            <li>
+                <a href="/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>关于</span>
+                </a>
+            </li>
+            
+            <li>
+                <a id="search">
+                    <i class="iconfont icon-sousuo1"></i>
+                    <span>搜索</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input">
+            <span id="begin-search">搜索</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+
+        <div class="index-about-mobile">
+            <i> too young，too simple，sometimes naive </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+<div class="post-preview-container" style="min-height: 720px">
+    
+    <div class="post-preview">
+        <div class="post-time">2019-05-30</div>
+        <div class="post-info">
+            <a href="/2019/05/30/数据库事务隔离级别：分析脏读 & 不可重复读 & 幻读/">
+                <h3>
+                    数据库事务隔离级别 - 分析脏读 &amp; 不可重复读 &amp; 幻读
+                </h3>
+            </a>
+            <p>
+                
+                <span>/</span>
+                
+                <a class="tag" href="/tags/#MySQL" title="MySQL">MySQL</a>
+                <span>/</span>
+                
+                
+            </p>
+        </div>
+    </div>
+    
+    <div class="post-preview">
+        <div class="post-time">2019-04-15</div>
+        <div class="post-info">
+            <a href="/2019/04/15/IDEA快捷键（Windows）/">
+                <h3>
+                    IDEA 快捷键(Win)
+                </h3>
+            </a>
+            <p>
+                
+                <span>/</span>
+                
+                <a class="tag" href="/tags/#Software" title="Software">Software</a>
+                <span>/</span>
+                
+                
+            </p>
+        </div>
+    </div>
+    
+    <div class="post-preview">
+        <div class="post-time">2019-03-21</div>
+        <div class="post-info">
+            <a href="/2019/03/21/MacOs切换JDK命令（JDK811为例）/">
+                <h3>
+                    Mac切换JDK命令(JDK 8/11)
+                </h3>
+            </a>
+            <p>
+                
+                <span>/</span>
+                
+                <a class="tag" href="/tags/#Java" title="Java">Java</a>
+                <span>/</span>
+                
+                
+            </p>
+        </div>
+    </div>
+    
+    <div class="post-preview">
+        <div class="post-time">2019-03-06</div>
+        <div class="post-info">
+            <a href="/2019/03/06/AES_CBC_PKCS5Padding加解密的Java实现/">
+                <h3>
+                    AES_CBC_PKCS5Padding加解密的Java实现
+                </h3>
+            </a>
+            <p>
+                
+                <span>/</span>
+                
+                <a class="tag" href="/tags/#Java" title="Java">Java</a>
+                <span>/</span>
+                
+                
+            </p>
+        </div>
+    </div>
+    
+    <div class="post-preview">
+        <div class="post-time">2018-11-23</div>
+        <div class="post-info">
+            <a href="/2018/11/23/Spring的@Transactional注解失效/">
+                <h3>
+                    Spring@Transactional注解失效
+                </h3>
+            </a>
+            <p>
+                
+                <span>/</span>
+                
+                <a class="tag" href="/tags/#Java Spring" title="Java Spring">Java Spring</a>
+                <span>/</span>
+                
+                
+            </p>
+        </div>
+    </div>
+    
+    <div class="post-preview">
+        <div class="post-time">2018-11-23</div>
+        <div class="post-info">
+            <a href="/2018/11/23/VS Code快捷键（Windows）/">
+                <h3>
+                    VS Code快捷键Windows版
+                </h3>
+            </a>
+            <p>
+                
+                <span>/</span>
+                
+                <a class="tag" href="/tags/#Software" title="Software">Software</a>
+                <span>/</span>
+                
+                
+            </p>
+        </div>
+    </div>
+    
+    <div class="post-preview">
+        <div class="post-time">2018-11-23</div>
+        <div class="post-info">
+            <a href="/2018/11/23/VS Code快捷键（Mac）/">
+                <h3>
+                    VS Code快捷键MacOs版
+                </h3>
+            </a>
+            <p>
+                
+                <span>/</span>
+                
+                <a class="tag" href="/tags/#Software" title="Software">Software</a>
+                <span>/</span>
+                
+                
+            </p>
+        </div>
+    </div>
+    
+    <div class="post-preview">
+        <div class="post-time">2018-11-20</div>
+        <div class="post-info">
+            <a href="/2018/11/20/CDH权限问题的非最佳解决/">
+                <h3>
+                    CDH权限问题的非最佳解决
+                </h3>
+            </a>
+            <p>
+                
+                <span>/</span>
+                
+                <a class="tag" href="/tags/#BigData CDH" title="BigData CDH">BigData CDH</a>
+                <span>/</span>
+                
+                
+            </p>
+        </div>
+    </div>
+    
+    <div class="post-preview">
+        <div class="post-time">2018-11-20</div>
+        <div class="post-info">
+            <a href="/2018/11/20/Spring MVC下对Request请求中日期字符串转换成Date类型的总结/">
+                <h3>
+                    Spring MVC下对Request请求中日期字符串转换成Date类型的总结
+                </h3>
+            </a>
+            <p>
+                
+                <span>/</span>
+                
+                <a class="tag" href="/tags/#Java Spring" title="Java Spring">Java Spring</a>
+                <span>/</span>
+                
+                
+            </p>
+        </div>
+    </div>
+    
+    <div class="post-preview">
+        <div class="post-time">2018-11-20</div>
+        <div class="post-info">
+            <a href="/2018/11/20/CombineBeansUtil：方法是用于相同对象不同属性值的合并/">
+                <h3>
+                    CombineBeansUtil：方法是用于相同对象不同属性值的合并
+                </h3>
+            </a>
+            <p>
+                
+                <span>/</span>
+                
+                <a class="tag" href="/tags/#Java JavaUtils" title="Java JavaUtils">Java JavaUtils</a>
+                <span>/</span>
+                
+                
+            </p>
+        </div>
+    </div>
+    
+</div>
+<ul class="pager">
+    
+    
+    <li class="next">
+        <a href="/page/2/">Older Posts &rarr;</a>
+    </li>
+    
 </ul>
-<h2 id="一-数据库事务的隔离级别"><a href="#一-数据库事务的隔离级别" class="headerlink" title="一 数据库事务的隔离级别"></a>一 数据库事务的隔离级别</h2><p>数据库事务的隔离级别有4个，由低到高依次为Read uncommitted 、Read committed 、Repeatable read 、Serializable ，这四个级别可以逐个解决脏读 、不可重复读 、幻读这几类问题。</p>
-<p><img src="/images/upload/%E4%BA%8B%E7%89%A9%E7%BA%A7%E5%88%AB.png" alt="事物级别"></p>
-<h3 id="1-Read-UnCommitted-读未提交"><a href="#1-Read-UnCommitted-读未提交" class="headerlink" title="1. Read UnCommitted(读未提交)"></a>1. Read UnCommitted(读未提交)</h3><p>最低的隔离级别。一个事务可以读取另一个事务并未提交的更新结果。</p>
-<h3 id="2-Read-Committed-读提交"><a href="#2-Read-Committed-读提交" class="headerlink" title="2. Read Committed(读提交)"></a>2. Read Committed(读提交)</h3><p>大部分数据库采用的默认隔离级别。一个事务的更新操作结果只有在该事务提交之后，另一个事务才可以的读取到同一笔数据更新后的结果。</p>
-<h3 id="3-Repeatable-Read-重复读"><a href="#3-Repeatable-Read-重复读" class="headerlink" title="3. Repeatable Read(重复读)"></a>3. Repeatable Read(重复读)</h3><p><strong>mysql的默认级别</strong>。整个事务过程中，对同一笔数据的读取结果是相同的，不管其他事务是否在对共享数据进行更新，也不管更新提交与否。</p>
-<h3 id="4-Serializable-序列化"><a href="#4-Serializable-序列化" class="headerlink" title="4. Serializable(序列化)"></a>4. Serializable(序列化)</h3><p>最高隔离级别。所有事务操作依次顺序执行。注意这会导致并发度下降，性能最差。通常会用其他并发级别加上相应的并发锁机制来取代它。</p>
-<h2 id="二-不同事务级别带来的并发问题"><a href="#二-不同事务级别带来的并发问题" class="headerlink" title="二 不同事务级别带来的并发问题"></a>二 不同事务级别带来的并发问题</h2><h3 id="1-脏读"><a href="#1-脏读" class="headerlink" title="1 脏读"></a>1 脏读</h3><p>脏读发生在一个事务A读取了被另一个事务B修改，但是还未提交的数据。假如B回退，则事务A读取的是无效的数据。这跟不可重复读类似，但是第二个事务不需要执行提交。 </p>
-<p><img src="/images/upload/%E8%84%8F%E8%AF%BB.png" alt="脏读"> </p>
-<h3 id="2-不可重复读"><a href="#2-不可重复读" class="headerlink" title="2 不可重复读"></a>2 不可重复读</h3><p>在基于锁的并行控制方法中，如果在执行select时不添加读锁，就会发生不可重复读问题。</p>
-<p>在多版本并行控制机制中，当一个遇到提交冲突的事务需要回退但却被释放时，会发生不可重复读问题。</p>
-<p><img src="/images/upload/%E4%B8%8D%E5%8F%AF%E9%87%8D%E5%A4%8D%E8%AF%BB.png" alt="不可重复读"></p>
-<p>在上面这个例子中，事务2提交成功，它所做的修改已经可见。然而，事务1已经读取了一个其它的值。在序列化和可重复读的隔离级别中，数据库管理系统会返回旧值，即在被事务2修改之前的值。在提交读和未提交读隔离级别下，可能会返回被更新的值，这就是“不可重复读”。</p>
-<p>有两个策略可以防止这个问题的发生：</p>
-<p>(1) 推迟事务2的执行，直至事务1提交或者回退。这种策略在使用锁时应用。</p>
-<p>(2) 而在多版本并行控制中，事务2可以被先提交。而事务1，继续执行在旧版本的数据上。当事务1终于尝试提交时，数据库会检验它的结果是否和事务1、事务2顺序执行时一样。如果是，则事务1提交成功。如果不是，事务1会被回退。</p>
-<p>3 <strong>幻读</strong> </p>
-<p>幻读发生在当两个完全相同的查询执行时，第二次查询所返回的结果集跟第一个查询不相同。</p>
-<p>发生的情况：没有范围锁。</p>
-<p><img src="/images/upload/%E5%B9%BB%E8%AF%BB.png" alt="幻读"></p>
-<h2 id="三-例子比较不可重复读和幻读"><a href="#三-例子比较不可重复读和幻读" class="headerlink" title="三 例子比较不可重复读和幻读"></a>三 例子比较不可重复读和幻读</h2><h3 id="1-不可重复读"><a href="#1-不可重复读" class="headerlink" title="1 不可重复读"></a>1 不可重复读</h3><p>不可重复读的重点是修改: 同样的条件, 你读取过的数据, 再次读取出来发现值不一样了</p>
-<p>例子:</p>
-<p>在事务1中，Mary 读取了自己的工资为1000,操作并没有完成 </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">con1 = getConnection();  </span><br><span class="line">select salary from employee empId =&quot;Mary&quot;;</span><br></pre></td></tr></table></figure>
 
-<p>在事务2中，这时财务人员修改了Mary的工资为2000,并提交了事务. </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">con2 = getConnection();  </span><br><span class="line">update employee set salary = 2000;  </span><br><span class="line">con2.commit();</span><br></pre></td></tr></table></figure>
-
-<p>在事务1中，Mary 再次读取自己的工资时，工资变为了2000 </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select salary from employee empId =&quot;Mary&quot;;</span><br></pre></td></tr></table></figure>
-
-<p>在一个事务中前后两次读取的结果并不致，导致了不可重复读。</p>
-<h3 id="2-幻读"><a href="#2-幻读" class="headerlink" title="2 幻读"></a>2 幻读</h3><p>幻读的重点在于新增或者删除 (数据条数变化)。同样的条件, 第1次和第2次读出来的记录数不一样</p>
-<p>例子：</p>
-<p>目前工资为1000的员工有10人。<br>事务1,读取所有工资为1000的员工。 </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">con1 = getConnection();  </span><br><span class="line">Select * from employee where salary =1000;</span><br></pre></td></tr></table></figure>
-
-<p>共读取10条记录 </p>
-<p>这时另一个事务向employee表插入了一条员工记录，工资也为1000 </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">con2 = getConnection();  </span><br><span class="line">Insert into employee(empId,salary) values(&quot;Lili&quot;,1000);  </span><br><span class="line">con2.commit();</span><br></pre></td></tr></table></figure>
-
-<p>事务1再次读取所有工资为1000的员工 </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select * from employee where salary =1000;</span><br></pre></td></tr></table></figure>
-
-<p>共读取到了11条记录，这就像产生了幻读。 </p>
-
-      
     </div>
-    <footer class="article-footer">
-      <a data-url="https://wavelou.github.io/2019/05/30/数据库事务隔离级别：分析脏读 & 不可重复读 & 幻读/" data-id="cjwxnblks000mqfi9wtoyoetq" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MySQL/">MySQL</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
+</div>
 
 
-  
-    <article id="post-IDEA快捷键（Windows）" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/04/15/IDEA快捷键（Windows）/" class="article-date">
-  <time datetime="2019-04-14T16:00:00.000Z" itemprop="datePublished">2019-04-15</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
+<footer class="footer">
+    <ul class="list-inline text-center">
         
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/04/15/IDEA快捷键（Windows）/">IDEA 快捷键(Win)</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><img src="/images/upload/idea%E5%BF%AB%E6%8D%B7%E9%94%AE.jpg" alt="idea快捷键"></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://wavelou.github.io/2019/04/15/IDEA快捷键（Windows）/" data-id="cjwxnblks000kqfi9qqbgdjir" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Software/">Software</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-MacOs切换JDK命令（JDK811为例）" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/03/21/MacOs切换JDK命令（JDK811为例）/" class="article-date">
-  <time datetime="2019-03-20T16:00:00.000Z" itemprop="datePublished">2019-03-21</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
         
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/03/21/MacOs切换JDK命令（JDK811为例）/">Mac切换JDK命令(JDK 8/11)</a>
-    </h1>
-  
 
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <ol>
-<li><p>官网下载 JDK8 和 JDK11</p>
-</li>
-<li><p>安装两个版本的jdk完，打开终端查看安装目录所在位置</p>
-<blockquote>
-<p>/Library/Java/JavaVirtualMachines/</p>
-</blockquote>
-</li>
-<li><p>配置脚本</p>
-<p>在当前用户目录下创建的一个文件：.bash_profile_jdk</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim ~/.bash_profile_jdk</span><br></pre></td></tr></table></figure>
-
-<p>配置JDK相关路径和别名</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> setting jdk8</span><br><span class="line">export JAVA_8_HOME=`/usr/libexec/java_home -v 1.8`</span><br><span class="line"><span class="meta">#</span> setting jdk11</span><br><span class="line">export JAVA_11_HOME=`/usr/libexec/java_home -v 11`</span><br><span class="line"><span class="meta">#</span> 默认为JDK8</span><br><span class="line">export JAVA_HOME=$JAVA_8_HOME</span><br><span class="line"><span class="meta">#</span> 切换命令</span><br><span class="line">alias jdk8='export JAVA_HOME=$JAVA_8_HOME;export PATH=$JAVA_HOME/bin:$PATH'</span><br><span class="line">alias jdk11='export JAVA_HOME=$JAVA_11_HOME;export PATH=$JAVA_HOME/bin:$PATH'</span><br><span class="line"><span class="meta">#</span>export JAVA_HOME=$(/usr/libexec/java_home)</span><br><span class="line">export PATH=$JAVA_HOME/bin:$PATH</span><br><span class="line">export CLASS_PATH=$JAVA_HOME/lib</span><br></pre></td></tr></table></figure>
-
-
-
-</li>
-</ol>
-<ol start="4">
-<li><p>执行配置文件</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">source ~/.bash_profile_jdk</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>这样基本已经配置执行完毕，进行验证</p>
-<p>终端输入jdk8就行切换jdk8版本，并且查看版本</p>
-<p><img src="/images/upload/change-jdk.png" alt="image-20190322164311879"></p>
-</li>
-</ol>
-<hr>
-<p>找到个新方法：</p>
-<p><a href="https://sdkman.io/" target="_blank" rel="noopener">SDK Man</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://wavelou.github.io/2019/03/21/MacOs切换JDK命令（JDK811为例）/" data-id="cjwxnblkq000hqfi9wpauscdm" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-AES_CBC_PKCS5Padding加解密的Java实现" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/03/06/AES_CBC_PKCS5Padding加解密的Java实现/" class="article-date">
-  <time datetime="2019-03-05T16:00:00.000Z" itemprop="datePublished">2019-03-06</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
         
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/03/06/AES_CBC_PKCS5Padding加解密的Java实现/">AES_CBC_PKCS5Padding加解密的Java实现</a>
-    </h1>
-  
 
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p>这几天碰到用这个来加密数据的接口。特此将代码实现贴上来。</p>
-<p>参考资料：<a href="https://www.cnblogs.com/hdwang/p/10286407.html" target="_blank" rel="noopener">JAVA AES CBC PKCS5Padding加解密</a></p>
-</blockquote>
-<blockquote>
-<p>注：如果需PKCS7Padding。需要另外找两个文件放到jdk目录下。详情百度or谷歌</p>
-</blockquote>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.apache.commons.codec.binary.Base64;</span><br><span class="line"><span class="keyword">import</span> org.slf4j.Logger;</span><br><span class="line"><span class="keyword">import</span> org.slf4j.LoggerFactory;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> javax.crypto.Cipher;</span><br><span class="line"><span class="keyword">import</span> javax.crypto.spec.IvParameterSpec;</span><br><span class="line"><span class="keyword">import</span> javax.crypto.spec.SecretKeySpec;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> *  加密工具类</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AESUtil</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Logger logger = LoggerFactory.getLogger(AESUtil.class);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String KEY_ALGORITHM = <span class="string">"AES"</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String DEFAULT_CIPHER_ALGORITHM = <span class="string">"AES/CBC/PKCS5Padding"</span>;<span class="comment">//默认的加密算法</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * AES 加密操作</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> content 待加密内容</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> password 加密密码</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> iv 使用CBC模式，需要一个向量iv，可增加加密算法的强度</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> 加密数据</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> String <span class="title">encrypt</span><span class="params">(String content, String password,String iv)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="comment">//创建密码器</span></span><br><span class="line">            Cipher cipher = Cipher.getInstance(DEFAULT_CIPHER_ALGORITHM);</span><br><span class="line"></span><br><span class="line">            <span class="comment">//密码key(超过16字节即128bit的key，需要替换jre中的local_policy.jar和US_export_policy.jar，否则报错：Illegal key size)</span></span><br><span class="line">            SecretKeySpec keySpec = <span class="keyword">new</span> SecretKeySpec(password.getBytes(<span class="string">"utf-8"</span>),KEY_ALGORITHM);</span><br><span class="line"></span><br><span class="line">            <span class="comment">//向量iv</span></span><br><span class="line">            IvParameterSpec ivParameterSpec = <span class="keyword">new</span> IvParameterSpec(iv.getBytes(<span class="string">"utf-8"</span>));</span><br><span class="line"></span><br><span class="line">            <span class="comment">//初始化为加密模式的密码器</span></span><br><span class="line">            cipher.init(Cipher.ENCRYPT_MODE,keySpec,ivParameterSpec);</span><br><span class="line"></span><br><span class="line">            <span class="comment">//加密</span></span><br><span class="line">            <span class="keyword">byte</span>[] byteContent = content.getBytes(<span class="string">"utf-8"</span>);</span><br><span class="line">            <span class="keyword">byte</span>[] result = cipher.doFinal(byteContent);</span><br><span class="line"></span><br><span class="line">            <span class="keyword">return</span> Base64.encodeBase64String(result);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception ex) &#123;</span><br><span class="line">            logger.error(ex.getMessage(),ex);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * AES 解密操作</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> content 密文</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> password 密码</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> iv 使用CBC模式，需要一个向量iv，可增加加密算法的强度</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> 明文</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> String <span class="title">decrypt</span><span class="params">(<span class="keyword">byte</span>[] content, String password,String iv)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="comment">//创建密码器</span></span><br><span class="line">            Cipher cipher = Cipher.getInstance(DEFAULT_CIPHER_ALGORITHM);</span><br><span class="line"></span><br><span class="line">            <span class="comment">//密码key</span></span><br><span class="line">            SecretKeySpec keySpec = <span class="keyword">new</span> SecretKeySpec(password.getBytes(<span class="string">"utf-8"</span>),KEY_ALGORITHM);</span><br><span class="line"></span><br><span class="line">            <span class="comment">//向量iv</span></span><br><span class="line">            IvParameterSpec ivParameterSpec = <span class="keyword">new</span> IvParameterSpec(iv.getBytes(<span class="string">"utf-8"</span>));</span><br><span class="line"></span><br><span class="line">            <span class="comment">//初始化为解密模式的密码器</span></span><br><span class="line">            cipher.init(Cipher.DECRYPT_MODE,keySpec,ivParameterSpec);</span><br><span class="line"></span><br><span class="line">            <span class="comment">//执行操作</span></span><br><span class="line">            <span class="keyword">byte</span>[] result = cipher.doFinal(content);</span><br><span class="line"></span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">new</span> String(result,<span class="string">"utf-8"</span>);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception ex) &#123;</span><br><span class="line">            logger.error(ex.getMessage(),ex);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://wavelou.github.io/2019/03/06/AES_CBC_PKCS5Padding加解密的Java实现/" data-id="cjwxnblkn000dqfi9617pnp3b" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-VS Code快捷键（Mac）" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/11/23/VS Code快捷键（Mac）/" class="article-date">
-  <time datetime="2018-11-22T16:00:00.000Z" itemprop="datePublished">2018-11-23</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
         
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/11/23/VS Code快捷键（Mac）/">VS Code快捷键MacOs版</a>
-    </h1>
-  
 
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="这篇写的比较好。"><a href="#这篇写的比较好。" class="headerlink" title="这篇写的比较好。"></a>这篇写的比较好。</h3><hr>
-<p>作者：D冰城<br>来源：CSDN<br>原文：<a href="https://blog.csdn.net/d_lds/article/details/63683624" target="_blank" rel="noopener">https://blog.csdn.net/d_lds/article/details/63683624</a><br>版权声明：本文为博主原创文章，转载请附上博文链接！</p>
-<hr>
-<h3 id="命令框"><a href="#命令框" class="headerlink" title="命令框"></a>命令框</h3><ol>
-<li>F1 或 Cmd+Shift+P: 打开命令面板。在打开的输入框内，可以输入任何命令<ul>
-<li>在Cmd+P下输入 &gt; 可以进入 Cmd+Shift+P 模式</li>
-</ul>
-</li>
-<li>在 Cmd+P 窗口下还可以:<ul>
-<li>直接输入文件名，跳转到文件</li>
-<li>? 列出当前可执行的动作</li>
-<li>: 跳转到行数，也可以 Cmd+G 直接进入</li>
-</ul>
-</li>
-</ol>
-<h3 id="常用快捷键"><a href="#常用快捷键" class="headerlink" title="常用快捷键"></a>常用快捷键</h3><h4 id="编辑器与窗口管理"><a href="#编辑器与窗口管理" class="headerlink" title="编辑器与窗口管理"></a>编辑器与窗口管理</h4><ol>
-<li>打开一个新窗口： Cmd+Shift+N</li>
-<li>关闭窗口： Cmd+Shift+W</li>
-<li>关闭标签页：Cmd+W</li>
-<li>新建文件 Cmd+N</li>
-<li>文件之间切换 Cmd+~</li>
-<li>切出一个新的编辑器（最多 3 个） Cmd+\</li>
-<li>左中右 3 个编辑器的快捷键 Cmd+1 Cmd+2 Cmd+3</li>
-<li>关闭打开资源管理器 Cmd+B</li>
-<li>切换同一编辑器不同的标签页：control+tab</li>
-</ol>
-<h4 id="代码编辑"><a href="#代码编辑" class="headerlink" title="代码编辑"></a>代码编辑</h4><h5 id="格式调整"><a href="#格式调整" class="headerlink" title="格式调整"></a>格式调整</h5><ol>
-<li>格式化代码：shift+Option+F</li>
-<li>上下移动一行： Option+Up 或 option+Down</li>
-<li>向上向下复制一行： Shift+Option+Up 或 Shift+Option+Down</li>
-<li>在当前行下边插入一行： Cmd+Enter</li>
-<li>在当前行上方插入一行： Cmd+Shift+Enter</li>
-<li>删除当前行：Cmd+Shift+K</li>
-</ol>
-<h5 id="光标相关"><a href="#光标相关" class="headerlink" title="光标相关"></a>光标相关</h5><ol>
-<li>跳到当前行的头部，尾部：Fn+←，Fn+→</li>
-<li>插入多光标：Option+click或Cmd+Option+up/Cmd+Option+down</li>
-</ol>
-<h4 id="搜索和替换"><a href="#搜索和替换" class="headerlink" title="搜索和替换"></a>搜索和替换</h4><ol>
-<li>查找：Cmd+F</li>
-<li>将选择添加到下一个查找匹配: Cmd+D</li>
-</ol>
-<h4 id="显示"><a href="#显示" class="headerlink" title="显示"></a>显示</h4><ol>
-<li>显示搜索：Shift+Cmd+F</li>
-<li>全局替换：Shift+Cmd+H</li>
-<li>放到/缩小：Cmd+=/Cmd+-</li>
-</ol>
-<h4 id="扩展"><a href="#扩展" class="headerlink" title="扩展"></a>扩展</h4><ol>
-<li>修改语言：组合键Cmd+K M</li>
-<li>设置：Cmd+,</li>
-</ol>
-<p>作者：石燕平_Leo</p>
-<p>链接：<a href="https://www.jianshu.com/p/82136daf07f7" target="_blank" rel="noopener">https://www.jianshu.com/p/82136daf07f7</a></p>
-<p>來源：简书</p>
-<p>简书著作权归作者所有，任何形式的转载都请联系作者获得授权并注明出处。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://wavelou.github.io/2018/11/23/VS Code快捷键（Mac）/" data-id="cjwxnblkk0008qfi92bndqg7r" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Software/">Software</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-Spring的@Transactional注解失效" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/11/23/Spring的@Transactional注解失效/" class="article-date">
-  <time datetime="2018-11-22T16:00:00.000Z" itemprop="datePublished">2018-11-23</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
         
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/11/23/Spring的@Transactional注解失效/">Spring@Transactional注解失效</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="Transactional是什么"><a href="#Transactional是什么" class="headerlink" title="@Transactional是什么"></a>@Transactional是什么</h2><p><a href="https://docs.spring.io/spring/docs/5.0.4.BUILD-SNAPSHOT/javadoc-api/org/springframework/transaction/annotation/Transactional.html" target="_blank" rel="noopener">@Transacational</a> 是Spring框架在1.2版本之后提供的用于管理数据库事物的注解，可用于方法以及类上。</p>
-<h3 id="个人理解"><a href="#个人理解" class="headerlink" title="个人理解"></a>个人理解</h3><p>其最终实现还是基于JDBC的事物管理：通过切面将由@Transactional管理的方法前后加上JDBC的事物管理，事物失败就在after方法中执行rollback。</p>
-<h3 id="特性"><a href="#特性" class="headerlink" title="特性"></a>特性</h3><p>先来了解一下@Transactional注解事务的特性吧，可以更好排查问题</p>
-<ol>
-<li><p>service类标签(一般不建议在接口上)上添加@Transactional，可以将整个类纳入spring事务管理，在每个业务方法执行时都会开启一个事务，不过这些事务采用相同的管理方式。</p>
-</li>
-<li><p>@Transactional 注解只能应用到 public 可见度的方法上。 如果应用在protected、private或者 package可见度的方法上，也不会报错，不过事务设置不会起作用。</p>
-</li>
-<li><p>只读事务:</p>
-<p>@Transactional(propagation=Propagation.NOT_SUPPORTED,readOnly=true)<br>只读标志只在事务启动时应用，否则即使配置也会被忽略。 </p>
-</li>
-<li><p>默认情况下，Spring会对unchecked异常进行事务回滚；如果是checked异常则不回滚。 </p>
-</li>
-<li><p>启动事务会增加线程开销，数据库因共享读取而锁定(具体跟数据库类型和事务隔离级别有关)。通常情况下，仅是读取数据时，不必设置只读事务而增加额外的系统开销。</p>
-</li>
-</ol>
-<blockquote>
-<p>java里面将派生于Error或者RuntimeException（比如空指针，1/0）的异常称为unchecked异常，其他继承自java.lang.Exception得异常统称为Checked Exception，如IOException、TimeoutException等</p>
-</blockquote>
-<blockquote>
-<p>这里还有一点要注意：如果异常全部被catch了。那就无法触发事物</p>
-</blockquote>
-<h3 id="注意点"><a href="#注意点" class="headerlink" title="注意点"></a>注意点</h3><ol>
-<li><p>在需要事务管理的地方加@Transactional 注解。@Transactional 注解可以被应用于接口定义和接口方法、类定义和类的 public 方法上。</p>
-</li>
-<li><p>@Transactional 注解只能应用到 public 可见度的方法上。 如果你在 protected、private 或者 package-visible 的方法上使用 @Transactional 注解，它也不会报错， 但是这个被注解的方法将不会展示已配置的事务设置。</p>
-</li>
-<li><p>注意仅仅 @Transactional 注解的出现不足于开启事务行为，它仅仅 是一种元数据。必须在配置文件中使用配置元素，才真正开启了事务行为。(spring配置文件中,开启声明式事务)</p>
-</li>
-<li><p>通过 元素的 “proxy-target-class” 属性值来控制是基于接口的还是基于类的代理被创建。如果 “proxy-target-class” 属值被设置为 “true”，那么基于类的代理将起作用（这时需要CGLIB库cglib.jar在CLASSPATH中）。如果 “proxy-target-class” 属值被设置为 “false” 或者这个属性被省略，那么标准的JDK基于接口的代理将起作用。</p>
-</li>
-<li><p>Spring团队建议在具体的类（或类的方法）上使用 @Transactional 注解，而不要使用在类所要实现的任何接口上。在接口上使用 @Transactional 注解，只能当你设置了基于接口的代理时它才生效。因为注解是 不能继承 的，这就意味着如果正在使用基于类的代理时，那么事务的设置将不能被基于类的代理所识别，而且对象也将不会被事务代理所包装。</p>
-</li>
-<li><p>@Transactional的事务开启 ，或者是基于接口的 或者是基于类的代理被创建。所以在同一个类中一个无事务的方法调用另一个有事务的方法，事务是不会起作用的。</p>
-</li>
-</ol>
-<h2 id="解决Transactional注解不回滚"><a href="#解决Transactional注解不回滚" class="headerlink" title="解决Transactional注解不回滚"></a>解决Transactional注解不回滚</h2><ol>
-<li><p>检查你方法是不是public的</p>
-</li>
-<li><p>你的异常类型是不是unchecked异常。</p>
-<p>如果我想check异常也想回滚怎么办，注解上面写明异常类型即可 @Transactional(rollbackFor=Exception.class) </p>
-<p>类似的还有norollbackFor，自定义不回滚的异常</p>
-</li>
-<li><p>数据库引擎要支持事务，如果是MySQL，注意表要使用支持事务的引擎，比如innodb，如果是myisam，事务是不起作用的</p>
-</li>
-<li><p>是否开启了对注解的解析</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">tx:annotation-driven</span> <span class="attr">transaction-manager</span>=<span class="string">"transactionManager"</span> </span></span><br><span class="line"><span class="tag">                      <span class="attr">proxy-target-class</span>=<span class="string">"true"</span>/&gt;</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>Spring是否扫描到你这个包，如下是扫描到org.test下面的包</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">context:component-scan</span> <span class="attr">base-package</span>=<span class="string">"org.test"</span> /&gt;</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>检查是不是同一个类中的方法调用（如a方法调用同一个类中的b方法） </p>
-</li>
-<li><p>异常是不是被你catch住了</p>
-</li>
-</ol>
-<h2 id="附：事务传播模式"><a href="#附：事务传播模式" class="headerlink" title="附：事务传播模式"></a>附：事务传播模式</h2><p>Propagation枚举了多种事务传播模式，部分列举如下：</p>
-<ol>
-<li><p>REQUIRED(默认模式)：业务方法需要在一个容器里运行。如果方法运行时，已经处在一个事务中，那么加入到这个事务，否则自己新建一个新的事务。</p>
-</li>
-<li><p>NOT_SUPPORTED：声明方法不需要事务。如果方法没有关联到一个事务，容器不会为他开启事务，如果方法在一个事务中被调用，该事务会被挂起，调用结束后，原先的事务会恢复执行。</p>
-</li>
-<li><p>REQUIRESNEW：不管是否存在事务，该方法总汇为自己发起一个新的事务。如果方法已经运行在一个事务中，则原有事务挂起，新的事务被创建。</p>
-</li>
-<li><p>MANDATORY：该方法只能在一个已经存在的事务中执行，业务方法不能发起自己的事务。如果在没有事务的环境下被调用，容器抛出例外。</p>
-</li>
-<li><p>SUPPORTS：该方法在某个事务范围内被调用，则方法成为该事务的一部分。如果方法在该事务范围外被调用，该方法就在没有事务的环境下执行。</p>
-</li>
-<li><p>NEVER：该方法绝对不能在事务范围内执行。如果在就抛例外。只有该方法没有关联到任何事务，才正常执行。</p>
-</li>
-<li><p>NESTED：如果一个活动的事务存在，则运行在一个嵌套的事务中。如果没有活动事务，则按REQUIRED属性执行。它使用了一个单独的事务，这个事务拥有多个可以回滚的保存点。内部事务的回滚不会对外部事务造成影响。它只对DataSourceTransactionManager事务管理器起效。</p>
-</li>
-</ol>
-<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p><a href="https://blog.csdn.net/u011410529/article/details/54287307" target="_blank" rel="noopener">@Transactional注解事务不回滚不起作用无效</a></p>
-<p><a href="https://blog.csdn.net/cs2425244259/article/details/50505616" target="_blank" rel="noopener">事务传播模式</a></p>
-<p><a href="https://blog.csdn.net/qq_34021712/article/details/75949779" target="_blank" rel="noopener">spring的service类调用自己方法事务无效</a></p>
-<p><a href="https://blog.csdn.net/rylan11/article/details/76609643" target="_blank" rel="noopener">Spring 事务失效那点事</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://wavelou.github.io/2018/11/23/Spring的@Transactional注解失效/" data-id="cjwxnblkl0009qfi93re532b3" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java-Spring/">Java Spring</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-VS Code快捷键（Windows）" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/11/23/VS Code快捷键（Windows）/" class="article-date">
-  <time datetime="2018-11-22T16:00:00.000Z" itemprop="datePublished">2018-11-23</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
+        <li>
+            <a target="_blank" href="https://github.com/wavelou">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-github"></i>
+                            </span>
+            </a>
+        </li>
         
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/11/23/VS Code快捷键（Windows）/">VS Code快捷键Windows版</a>
-    </h1>
-  
 
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="原文章地址：-vscode-Visual-Studio-Code-常用快捷键"><a href="#原文章地址：-vscode-Visual-Studio-Code-常用快捷键" class="headerlink" title="原文章地址： vscode: Visual Studio Code 常用快捷键"></a>原文章地址： <a href="https://lzw.me/a/vscode-visual-studio-code-shortcut.html" target="_blank" rel="noopener">vscode: Visual Studio Code 常用快捷键</a></h2><h2 id="官方快捷键说明：Key-Bindings-for-Visual-Studio-Code"><a href="#官方快捷键说明：Key-Bindings-for-Visual-Studio-Code" class="headerlink" title="官方快捷键说明：Key Bindings for Visual Studio Code"></a>官方快捷键说明：<a href="https://code.visualstudio.com/docs/customization/keybindings" target="_blank" rel="noopener">Key Bindings for Visual Studio Code</a></h2><h2 id="主命令框"><a href="#主命令框" class="headerlink" title="主命令框"></a>主命令框</h2><p><code>F1</code> 或 <code>Ctrl+Shift+P</code>: 打开命令面板。在打开的输入框内，可以输入任何命令，例如：</p>
-<ul>
-<li>按一下 <code>Backspace</code> 会进入到 <code>Ctrl+P</code> 模式</li>
-<li>在 <code>Ctrl+P</code> 下输入 <code>&gt;</code> 可以进入 <code>Ctrl+Shift+P</code> 模式</li>
-</ul>
-<p>在 <code>Ctrl+P</code> 窗口下还可以:</p>
-<ul>
-<li>直接输入文件名，跳转到文件</li>
-<li><code>?</code> 列出当前可执行的动作</li>
-<li><code>!</code> 显示 <code>Errors</code>或 <code>Warnings</code>，也可以 <code>Ctrl+Shift+M</code></li>
-<li><code>:</code> 跳转到行数，也可以 <code>Ctrl+G</code> 直接进入</li>
-<li><code>@</code> 跳转到 <code>symbol</code>（搜索变量或者函数），也可以 <code>Ctrl+Shift+O</code> 直接进入</li>
-<li><code>@</code> 根据分类跳转 <code>symbol</code>，查找属性或函数，也可以 <code>Ctrl+Shift+O</code> 后输入:进入</li>
-<li><code>#</code> 根据名字查找 <code>symbol</code>，也可以 <code>Ctrl+T</code></li>
-</ul>
-<h2 id="常用快捷键"><a href="#常用快捷键" class="headerlink" title="常用快捷键"></a>常用快捷键</h2><h3 id="编辑器与窗口管理"><a href="#编辑器与窗口管理" class="headerlink" title="编辑器与窗口管理"></a>编辑器与窗口管理</h3><ol>
-<li>打开一个新窗口： <code>Ctrl+Shift+N</code></li>
-<li>关闭窗口： <code>Ctrl+Shift+W</code></li>
-<li>同时打开多个编辑器（查看多个文件）</li>
-<li>新建文件 <code>Ctrl+N</code></li>
-<li>文件之间切换 <code>Ctrl+Tab</code></li>
-<li>切出一个新的编辑器（最多 <code>3</code> 个） <code>Ctrl+\</code>，也可以按住 <code>Ctrl</code> 鼠标点击 <code>Explorer</code> 里的文件名</li>
-<li>左中右 <code>3</code> 个编辑器的快捷键 <code>Ctrl+1</code> <code>Ctrl+2</code> <code>Ctrl+3</code></li>
-<li><code>3</code> 个编辑器之间循环切换 <code>Ctrl+</code></li>
-<li>编辑器换位置， <code>Ctrl+k</code>然后按 <code>Left</code>或 <code>Right</code></li>
-</ol>
-<h3 id="代码编辑"><a href="#代码编辑" class="headerlink" title="代码编辑"></a>代码编辑</h3><h4 id="格式调整"><a href="#格式调整" class="headerlink" title="格式调整"></a>格式调整</h4><ol>
-<li>代码行缩进 <code>Ctrl+[</code> 、 <code>Ctrl+]</code></li>
-<li><code>Ctrl+C</code> 、 <code>Ctrl+V</code> 复制或剪切当前行/当前选中内容</li>
-<li>代码格式化： <code>Shift+Alt+F</code>，或 <code>Ctrl+Shift+P</code> 后输入 <code>format code</code></li>
-<li>上下移动一行： <code>Alt+Up</code> 或 <code>Alt+Down</code></li>
-<li>向上向下复制一行： <code>Shift+Alt+Up</code> 或 <code>Shift+Alt+Down</code></li>
-<li>在当前行下边插入一行 <code>Ctrl+Enter</code></li>
-<li>在当前行上方插入一行 <code>Ctrl+Shift+Enter</code></li>
-</ol>
-<h4 id="光标相关"><a href="#光标相关" class="headerlink" title="光标相关"></a>光标相关</h4><ol>
-<li>移动到行首： <code>Home</code></li>
-<li>移动到行尾： <code>End</code></li>
-<li>移动到文件结尾： <code>Ctrl+End</code></li>
-<li>移动到文件开头： <code>Ctrl+Home</code></li>
-<li>移动到定义处： <code>F12</code></li>
-<li>定义处缩略图：只看一眼而不跳转过去 <code>Alt+F12</code></li>
-<li>移动到后半个括号： <code>Ctrl+Shift+]</code></li>
-<li>选择从光标到行尾： <code>Shift+End</code></li>
-<li>选择从行首到光标处： <code>Shift+Home</code></li>
-<li>删除光标右侧的所有字： <code>Ctrl+Delete</code></li>
-<li>扩展/缩小选取范围： <code>Shift+Alt+Left</code> 和 <code>Shift+Alt+Right</code></li>
-<li>多行编辑(列编辑)：<code>Alt+Shift+鼠标左键</code>，<code>Ctrl+Alt+Down/Up</code></li>
-<li>同时选中所有匹配： <code>Ctrl+Shift+L</code></li>
-<li><code>Ctrl+D</code> 下一个匹配的也被选中 (在 sublime 中是删除当前行，后面自定义快键键中，设置与 <code>Ctrl+Shift+K</code> 互换了)</li>
-<li>回退上一个光标操作： <code>Ctrl+U</code></li>
-</ol>
-<h4 id="重构代码"><a href="#重构代码" class="headerlink" title="重构代码"></a>重构代码</h4><ol>
-<li>找到所有的引用： <code>Shift+F12</code></li>
-<li>同时修改本文件中所有匹配的： <code>Ctrl+F12</code></li>
-<li>重命名：比如要修改一个方法名，可以选中后按 <code>F2</code>，输入新的名字，回车，会发现所有的文件都修改了</li>
-<li>跳转到下一个 <code>Error</code> 或 <code>Warning</code>：当有多个错误时可以按 <code>F8</code> 逐个跳转</li>
-<li>查看 <code>diff</code>： 在 <code>explorer</code> 里选择文件右键 <code>Set file to compare</code>，然后需要对比的文件上右键选择 <code>Compare with file_name_you_chose</code></li>
-</ol>
-<h4 id="查找替换"><a href="#查找替换" class="headerlink" title="查找替换"></a>查找替换</h4><ol>
-<li>查找 <code>Ctrl+F</code></li>
-<li>查找替换 <code>Ctrl+H</code></li>
-<li>整个文件夹中查找 <code>Ctrl+Shift+F</code></li>
-</ol>
-<h3 id="显示相关"><a href="#显示相关" class="headerlink" title="显示相关"></a>显示相关</h3><ol>
-<li>全屏：<code>F11</code></li>
-<li>zoomIn/zoomOut：<code>Ctrl +/-</code></li>
-<li>侧边栏显/隐：<code>Ctrl+B</code></li>
-<li>显示资源管理器 <code>Ctrl+Shift+E</code></li>
-<li>显示搜索 <code>Ctrl+Shift+F</code></li>
-<li>显示 Git <code>Ctrl+Shift+G</code></li>
-<li>显示 Debug <code>Ctrl+Shift+D</code></li>
-<li>显示 Output <code>Ctrl+Shift+U</code></li>
-</ol>
-<h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><ul>
-<li>自动保存：<code>File -&gt; AutoSave</code> ，或者 <code>Ctrl+Shift+P</code>，输入 <code>auto</code></li>
-</ul>
-<h2 id="修改默认快捷键"><a href="#修改默认快捷键" class="headerlink" title="修改默认快捷键"></a>修改默认快捷键</h2><p>打开默认键盘快捷方式设置：<br><code>File -&gt; Preferences -&gt; Keyboard Shortcuts</code>，或者：<code>Alt+F -&gt; p -&gt; k</code></p>
-<p>修改 <code>keybindings.json</code>：</p>
-<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">// Place your key bindings in this file to overwrite the defaults</span><br><span class="line">[</span><br><span class="line">    // ctrl+space 被切换输入法快捷键占用</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="attr">"key"</span>: <span class="string">"ctrl+alt+space"</span>,</span><br><span class="line">        <span class="attr">"command"</span>: <span class="string">"editor.action.triggerSuggest"</span>,</span><br><span class="line">        <span class="attr">"when"</span>: <span class="string">"editorTextFocus"</span></span><br><span class="line">    &#125;,</span><br><span class="line">    // ctrl+d 删除一行</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="attr">"key"</span>: <span class="string">"ctrl+d"</span>,</span><br><span class="line">        <span class="attr">"command"</span>: <span class="string">"editor.action.deleteLines"</span>,</span><br><span class="line">        <span class="attr">"when"</span>: <span class="string">"editorTextFocus"</span></span><br><span class="line">    &#125;,</span><br><span class="line">    // 与删除一行的快捷键互换</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="attr">"key"</span>: <span class="string">"ctrl+shift+k"</span>,</span><br><span class="line">        <span class="attr">"command"</span>: <span class="string">"editor.action.addSelectionToNextFindMatch"</span>,</span><br><span class="line">        <span class="attr">"when"</span>: <span class="string">"editorFocus"</span></span><br><span class="line">    &#125;,</span><br><span class="line">    // ctrl+shift+/多行注释</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="attr">"key"</span>:<span class="string">"ctrl+shift+/"</span>,</span><br><span class="line">        <span class="attr">"command"</span>: <span class="string">"editor.action.blockComment"</span>,</span><br><span class="line">        <span class="attr">"when"</span>: <span class="string">"editorTextFocus"</span></span><br><span class="line">    &#125;,</span><br><span class="line">    // 定制与 sublime 相同的大小写转换快捷键，需安装 TextTransform 插件</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="attr">"key"</span>: <span class="string">"ctrl+k ctrl+u"</span>,</span><br><span class="line">        <span class="attr">"command"</span>: <span class="string">"uppercase"</span>,</span><br><span class="line">        <span class="attr">"when"</span>: <span class="string">"editorTextFocus"</span></span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="attr">"key"</span>: <span class="string">"ctrl+k ctrl+l"</span>,</span><br><span class="line">        <span class="attr">"command"</span>: <span class="string">"lowercase"</span>,</span><br><span class="line">        <span class="attr">"when"</span>: <span class="string">"editorTextFocus"</span></span><br><span class="line">    &#125;</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
-
-<h2 id="前端开发必备插件"><a href="#前端开发必备插件" class="headerlink" title="前端开发必备插件"></a>前端开发必备插件</h2><ul>
-<li>PostCSS Sorting</li>
-<li>stylelint</li>
-<li>stylefmt</li>
-<li>ESLint</li>
-<li>javascript standard format</li>
-<li>beautify</li>
-<li>Babel ES6/ES7</li>
-<li>Debugger for Chrome</li>
-<li>Add jsdoc comments</li>
-<li>javascript(ES6) code snippets</li>
-<li>vue</li>
-<li>weex</li>
-<li>Reactjs code snippets</li>
-<li>React Native Tools</li>
-<li>Npm Intellisense</li>
-<li>Instant Markdown</li>
-<li>Markdown Shortcuts</li>
-<li>TextTransform</li>
-</ul>
-<h2 id="自定义设置参考"><a href="#自定义设置参考" class="headerlink" title="自定义设置参考"></a>自定义设置参考</h2><p>vscode 自定义配置参考：</p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&#123;</span></span><br><span class="line">    <span class="string">"editor.fontSize"</span><span class="string">:</span> <span class="number">18</span><span class="string">,</span></span><br><span class="line">    <span class="string">"files.associations"</span><span class="string">:</span> <span class="string">&#123;</span></span><br><span class="line">        <span class="string">"*.es"</span><span class="string">:</span> <span class="string">"javascript"</span><span class="string">,</span></span><br><span class="line">        <span class="string">"*.es6"</span><span class="string">:</span> <span class="string">"javascript"</span></span><br><span class="line">    <span class="string">&#125;,</span></span><br><span class="line">    <span class="string">//</span> <span class="string">控制编辑器是否应呈现空白字符</span></span><br><span class="line">    <span class="string">"editor.renderWhitespace"</span><span class="string">:</span> <span class="literal">true</span><span class="string">,</span></span><br><span class="line">    <span class="string">//</span> <span class="string">启用后，将在保存文件时剪裁尾随空格。</span></span><br><span class="line">    <span class="string">"files.trimTrailingWhitespace"</span><span class="string">:</span> <span class="literal">true</span><span class="string">,</span></span><br><span class="line">    <span class="string">//</span> <span class="string">File</span> <span class="string">extensions</span> <span class="string">that</span> <span class="string">can</span> <span class="string">be</span> <span class="string">beautified</span> <span class="string">as</span> <span class="string">javascript</span> <span class="string">or</span> <span class="string">JSON.</span></span><br><span class="line">    <span class="string">"beautify.JSfiles"</span><span class="string">:</span> <span class="string">[</span></span><br><span class="line">        <span class="string">""</span><span class="string">,</span></span><br><span class="line">        <span class="string">"es"</span><span class="string">,</span></span><br><span class="line">        <span class="string">"es6"</span><span class="string">,</span></span><br><span class="line">        <span class="string">"js"</span><span class="string">,</span></span><br><span class="line">        <span class="string">"json"</span><span class="string">,</span></span><br><span class="line">        <span class="string">"jsbeautifyrc"</span><span class="string">,</span></span><br><span class="line">        <span class="string">"jshintrc"</span></span><br><span class="line">    <span class="string">]</span></span><br><span class="line"><span class="string">&#125;</span></span><br></pre></td></tr></table></figure>
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://wavelou.github.io/2018/11/23/VS Code快捷键（Windows）/" data-id="cjwxnblkm000bqfi96tvhbt08" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Software/">Software</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-CDH权限问题的非最佳解决" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/11/20/CDH权限问题的非最佳解决/" class="article-date">
-  <time datetime="2018-11-19T16:00:00.000Z" itemprop="datePublished">2018-11-20</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
         
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/11/20/CDH权限问题的非最佳解决/">CDH权限问题的非最佳解决</a>
-    </h1>
-  
 
-      </header>
+    </ul>
     
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>在cloudera里面设置本地运行目录用户设为root解决本地文件读取权限问题。然后再把hdfs内部的权限控制关掉就解决用root用户不能跑spark-shell的问题。虽然不太好。不过学习的时候就不管这么多了。</p>
-<blockquote>
-<p>临时记录。下次补图</p>
-</blockquote>
-<p><img src="https://upload-images.jianshu.io/upload_images/13709630-3613918cbb5b8de3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="nameNode配置root用户访问权限避免无法读取本地文件"></p>
-<p><img src="https://upload-images.jianshu.io/upload_images/13709630-d044e8d3ec5b218e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="关闭检查HDFS权限使得可以通过root用户启动hdfs"></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://wavelou.github.io/2018/11/20/CDH权限问题的非最佳解决/" data-id="cjwxnblk90000qfi9vo8mkfp7" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/BigData-CDH/">BigData CDH</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-UTC时间和GMT时间" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/11/20/UTC时间和GMT时间/" class="article-date">
-  <time datetime="2018-11-19T16:00:00.000Z" itemprop="datePublished">2018-11-20</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/11/20/UTC时间和GMT时间/">UTC时间和GMT时间</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>今天在做一个物联网项目，设备上传的时间是UTC时间。跟我们平时北京时间不通。<br>以下是UTC时间的解释：</p>
-<blockquote>
-<p>UTC是协调世界时(Universal Time Coordinated)英文缩写，是由国际无线电咨询委员会规定和推荐,并由<a href="https://www.baidu.com/s?wd=%E5%9B%BD%E9%99%85%E6%97%B6%E9%97%B4%E5%B1%80&tn=SE_PcZhidaonwhc_ngpagmjz&rsv_dl=gh_pc_zhidao" target="_blank" rel="noopener">国际时间局</a>(BIH)负责保持的以秒为基础的时间标度。UTC相当于<a href="https://www.baidu.com/s?wd=%E6%9C%AC%E5%88%9D%E5%AD%90%E5%8D%88%E7%BA%BF&tn=SE_PcZhidaonwhc_ngpagmjz&rsv_dl=gh_pc_zhidao" target="_blank" rel="noopener">本初子午线</a>(即经度0度)上的平均太阳时，过去曾用<a href="https://www.baidu.com/s?wd=%E6%A0%BC%E6%9E%97%E5%A8%81%E6%B2%BB&tn=SE_PcZhidaonwhc_ngpagmjz&rsv_dl=gh_pc_zhidao" target="_blank" rel="noopener">格林威治</a>平均时(GMT)来表示.<a href="https://www.baidu.com/s?wd=%E5%8C%97%E4%BA%AC%E6%97%B6%E9%97%B4&tn=SE_PcZhidaonwhc_ngpagmjz&rsv_dl=gh_pc_zhidao" target="_blank" rel="noopener">北京时间</a>比UTC时间早8小时，以1999年1月1日0000UTC为例，UTC时间是零点，<a href="https://www.baidu.com/s?wd=%E5%8C%97%E4%BA%AC%E6%97%B6%E9%97%B4&tn=SE_PcZhidaonwhc_ngpagmjz&rsv_dl=gh_pc_zhidao" target="_blank" rel="noopener">北京时间</a>为1999年1月1日早上8点整。</p>
-</blockquote>
-<blockquote>
-<p>整个地球分为二十四时区，每个时区都有自己的本地时间。在国际无线电通信场合，为了统一起见，使用一个统一的时间，称为通用协调时(UTC, Universal Time Coordinated)。UTC与<a href="https://www.baidu.com/s?wd=%E6%A0%BC%E6%9E%97%E5%B0%BC%E6%B2%BB&tn=SE_PcZhidaonwhc_ngpagmjz&rsv_dl=gh_pc_zhidao" target="_blank" rel="noopener">格林尼治</a>平均时(GMT, Greenwich Mean Time)一样，都与英国伦敦的本地时相同。</p>
-</blockquote>
-<blockquote>
-<p>时差的计算公式：<br>UTC + 时区差 = 本地时间<br>时区差东为正，西为负（比如东八区记为+0800，西五区记为-0500）</p>
-</blockquote>
-<p>附一张时区对比图片<br><img src="https://upload-images.jianshu.io/upload_images/13709630-86cadc6e1b301f81.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
-<p>参考文章：<br><a href="https://blog.csdn.net/one_girl/article/details/78711240" target="_blank" rel="noopener">https://blog.csdn.net/one_girl/article/details/78711240</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://wavelou.github.io/2018/11/20/UTC时间和GMT时间/" data-id="cjwxnblkd0001qfi9ocddtiwe" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-CombineBeansUtil：方法是用于相同对象不同属性值的合并" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/11/20/CombineBeansUtil：方法是用于相同对象不同属性值的合并/" class="article-date">
-  <time datetime="2018-11-19T16:00:00.000Z" itemprop="datePublished">2018-11-20</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/11/20/CombineBeansUtil：方法是用于相同对象不同属性值的合并/">CombineBeansUtil：方法是用于相同对象不同属性值的合并</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p>今天碰到了两个Bean合并的案例。这里保留一份找来的工具类，修改了下。<br>注意：方法是用于相同对象不同属性值的合并</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line">&gt;<span class="keyword">import</span> java.lang.reflect.Field;</span><br><span class="line">&gt;<span class="keyword">import</span> java.lang.reflect.Modifier;</span><br><span class="line">&gt;</span><br><span class="line">&gt;<span class="comment">/**</span></span><br><span class="line"><span class="comment">&gt; * Description: 对象合并的工具类</span></span><br><span class="line"><span class="comment">&gt; *</span></span><br><span class="line"><span class="comment">&gt; * <span class="doctag">@author</span></span></span><br><span class="line"><span class="comment">&gt; * <span class="doctag">@date</span> 2018-09-11 上午11:27</span></span><br><span class="line"><span class="comment">&gt; */</span></span><br><span class="line">&gt;<span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CombineBeansUtil</span> </span>&#123;</span><br><span class="line">&gt;</span><br><span class="line">&gt;</span><br><span class="line">&gt;    <span class="comment">/**</span></span><br><span class="line"><span class="comment">&gt;     * 该方法是用于相同对象不同属性值的合并&lt;br&gt;</span></span><br><span class="line"><span class="comment">&gt;     * 如果两个相同对象中同一属性都有值，那么sourceBean中的值会覆盖tagetBean重点的值&lt;br&gt;</span></span><br><span class="line"><span class="comment">&gt;     * 如果sourceBean有值，targetBean没有，则采用sourceBean的值&lt;br&gt;</span></span><br><span class="line"><span class="comment">&gt;     * 如果sourceBean没有值，targetBean有，则保留targetBean的值</span></span><br><span class="line"><span class="comment">&gt;     * </span></span><br><span class="line"><span class="comment">&gt;     * <span class="doctag">@param</span> sourceBean    被提取的对象bean</span></span><br><span class="line"><span class="comment">&gt;     * <span class="doctag">@param</span> targetBean    用于合并的对象bean</span></span><br><span class="line"><span class="comment">&gt;     * <span class="doctag">@return</span> targetBean,合并后的对象</span></span><br><span class="line"><span class="comment">&gt;     */</span></span><br><span class="line">&gt;    <span class="keyword">public</span> <span class="keyword">static</span> &lt;T&gt; <span class="function">T <span class="title">combineSydwCore</span><span class="params">(T sourceBean, T targetBean)</span></span>&#123;</span><br><span class="line">&gt;        Class sourceBeanClass = sourceBean.getClass();</span><br><span class="line">&gt;        Class targetBeanClass = targetBean.getClass();</span><br><span class="line">&gt;</span><br><span class="line">&gt;        Field[] sourceFields = sourceBeanClass.getDeclaredFields();</span><br><span class="line">&gt;        Field[] targetFields = targetBeanClass.getDeclaredFields();</span><br><span class="line">&gt;        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;sourceFields.length; i++)&#123;</span><br><span class="line">&gt;            Field sourceField = sourceFields[i];</span><br><span class="line">&gt;            <span class="keyword">if</span>(Modifier.isStatic(sourceField.getModifiers()))&#123;</span><br><span class="line">&gt;                <span class="keyword">continue</span>;</span><br><span class="line">&gt;            &#125;</span><br><span class="line">&gt;            Field targetField = targetFields[i];</span><br><span class="line">&gt;            <span class="keyword">if</span>(Modifier.isStatic(targetField.getModifiers()))&#123;</span><br><span class="line">&gt;                <span class="keyword">continue</span>;</span><br><span class="line">&gt;            &#125;</span><br><span class="line">&gt;            sourceField.setAccessible(<span class="keyword">true</span>);</span><br><span class="line">&gt;            targetField.setAccessible(<span class="keyword">true</span>);</span><br><span class="line">&gt;            <span class="keyword">try</span> &#123;</span><br><span class="line">&gt;                <span class="keyword">if</span>( !(sourceField.get(sourceBean) == <span class="keyword">null</span>) &amp;&amp;  !<span class="string">"serialVersionUID"</span>.equals(sourceField.getName().toString()))&#123;</span><br><span class="line">&gt;                    targetField.set(targetBean,sourceField.get(sourceBean));</span><br><span class="line">&gt;                &#125;</span><br><span class="line">&gt;            &#125; <span class="keyword">catch</span> (IllegalArgumentException | IllegalAccessException e) &#123;</span><br><span class="line">&gt;                e.printStackTrace();</span><br><span class="line">&gt;            &#125;</span><br><span class="line">&gt;        &#125;</span><br><span class="line">&gt;        <span class="keyword">return</span> targetBean;</span><br><span class="line">&gt;    &#125;</span><br><span class="line">&gt;</span><br><span class="line">&gt;&#125;</span><br><span class="line">&gt;</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
-</blockquote>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://wavelou.github.io/2018/11/20/CombineBeansUtil：方法是用于相同对象不同属性值的合并/" data-id="cjwxnblkg0003qfi9ca9aao6g" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java-JavaUtils/">Java JavaUtils</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-
-
-  <nav id="page-nav">
-    
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
-  </nav>
-
-</section>
-        
-          <aside id="sidebar">
-  
-    
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Tags</h3>
-    <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/BigData-CDH/">BigData CDH</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/">Java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java-JavaUtils/">Java JavaUtils</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java-Spring/">Java Spring</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Jekyll-GithubPage/">Jekyll GithubPage</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/">MySQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Software/">Software</a></li></ul>
-    </div>
-  </div>
-
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Tag Cloud</h3>
-    <div class="widget tagcloud">
-      <a href="/tags/BigData-CDH/" style="font-size: 10px;">BigData CDH</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/Java-JavaUtils/" style="font-size: 10px;">Java JavaUtils</a> <a href="/tags/Java-Spring/" style="font-size: 13.33px;">Java Spring</a> <a href="/tags/Jekyll-GithubPage/" style="font-size: 10px;">Jekyll GithubPage</a> <a href="/tags/MySQL/" style="font-size: 10px;">MySQL</a> <a href="/tags/Software/" style="font-size: 16.67px;">Software</a>
-    </div>
-  </div>
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Archives</h3>
-    <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a></li></ul>
-    </div>
-  </div>
-
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Recent Posts</h3>
-    <div class="widget">
-      <ul>
-        
-          <li>
-            <a href="/2019/05/30/数据库事务隔离级别：分析脏读 & 不可重复读 & 幻读/">数据库事务隔离级别 - 分析脏读 &amp; 不可重复读 &amp; 幻读</a>
-          </li>
-        
-          <li>
-            <a href="/2019/04/15/IDEA快捷键（Windows）/">IDEA 快捷键(Win)</a>
-          </li>
-        
-          <li>
-            <a href="/2019/03/21/MacOs切换JDK命令（JDK811为例）/">Mac切换JDK命令(JDK 8/11)</a>
-          </li>
-        
-          <li>
-            <a href="/2019/03/06/AES_CBC_PKCS5Padding加解密的Java实现/">AES_CBC_PKCS5Padding加解密的Java实现</a>
-          </li>
-        
-          <li>
-            <a href="/2018/11/23/VS Code快捷键（Mac）/">VS Code快捷键MacOs版</a>
-          </li>
-        
-      </ul>
-    </div>
-  </div>
-
-  
-</aside>
-        
-      </div>
-      <footer id="footer">
-  
-  <div class="outer">
-    <div id="footer-info" class="inner">
-      &copy; 2019 Wave Lou<br>
-      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
-    </div>
-  </div>
+    <p>
+        <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+        </span>
+        <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+        </span>
+        Created By <a href="https://hexo.io/">Hexo</a>  Theme <a href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
 </footer>
-    </div>
-    <nav id="mobile-nav">
-  
-    <a href="/" class="mobile-nav-link">Home</a>
-  
-    <a href="/archives" class="mobile-nav-link">Archives</a>
-  
-</nav>
-    
-
-<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-
-
-  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
-  <script src="/fancybox/jquery.fancybox.pack.js"></script>
-
-
-<script src="/js/script.js"></script>
 
 
 
-  </div>
+
 </body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = "search.json"
+    window.hexo_root = "/"
+    window.isPost = false
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="/js/index.js"></script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
 </html>

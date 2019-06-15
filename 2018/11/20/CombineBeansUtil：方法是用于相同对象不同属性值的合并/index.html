@@ -1,231 +1,232 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head><meta name="generator" content="Hexo 3.8.0">
-  <meta charset="utf-8">
-  
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="油光发亮浪打浪">
+    <meta name="keyword" content>
+    <link rel="shortcut icon" href="/img/favicon.ico">
 
-  
-  <title>CombineBeansUtil：方法是用于相同对象不同属性值的合并 | waVeLou的Blog</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="今天碰到了两个Bean合并的案例。这里保留一份找来的工具类，修改了下。注意：方法是用于相同对象不同属性值的合并 1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253&amp;gt;import java.lang.reflect.Field;&amp;gt;import">
-<meta name="keywords" content="Java JavaUtils">
-<meta property="og:type" content="article">
-<meta property="og:title" content="CombineBeansUtil：方法是用于相同对象不同属性值的合并">
-<meta property="og:url" content="https://wavelou.github.io/2018/11/20/CombineBeansUtil：方法是用于相同对象不同属性值的合并/index.html">
-<meta property="og:site_name" content="waVeLou的Blog">
-<meta property="og:description" content="今天碰到了两个Bean合并的案例。这里保留一份找来的工具类，修改了下。注意：方法是用于相同对象不同属性值的合并 1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253&amp;gt;import java.lang.reflect.Field;&amp;gt;import">
-<meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-11-21T04:13:24.000Z">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="CombineBeansUtil：方法是用于相同对象不同属性值的合并">
-<meta name="twitter:description" content="今天碰到了两个Bean合并的案例。这里保留一份找来的工具类，修改了下。注意：方法是用于相同对象不同属性值的合并 1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253&amp;gt;import java.lang.reflect.Field;&amp;gt;import">
-  
-    <link rel="alternate" href="/atom.xml" title="waVeLou的Blog" type="application/atom+xml">
-  
-  
-    <link rel="icon" href="/favicon.png">
-  
-  
-    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
-  
-  <link rel="stylesheet" href="/css/style.css">
+    <title>
+        
+        CombineBeansUtil：方法是用于相同对象不同属性值的合并 - WaveLou的博客 | WaveLou&#39;s Blog
+        
+    </title>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/aircloud.css">
+    <link rel="stylesheet" href="/css/gitment.css">
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
 </head>
-</html>
-<body>
-  <div id="container">
-    <div id="wrap">
-      <header id="header">
-  <div id="banner"></div>
-  <div id="header-outer" class="outer">
-    <div id="header-title" class="inner">
-      <h1 id="logo-wrap">
-        <a href="/" id="logo">waVeLou的Blog</a>
-      </h1>
-      
-    </div>
-    <div id="header-inner" class="inner">
-      <nav id="main-nav">
-        <a id="main-nav-toggle" class="nav-icon"></a>
-        
-          <a class="main-nav-link" href="/">Home</a>
-        
-          <a class="main-nav-link" href="/archives">Archives</a>
-        
-      </nav>
-      <nav id="sub-nav">
-        
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
-        
-        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
-      </nav>
-      <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://wavelou.github.io"></form>
-      </div>
-    </div>
-  </div>
-</header>
-      <div class="outer">
-        <section id="main"><article id="post-CombineBeansUtil：方法是用于相同对象不同属性值的合并" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/11/20/CombineBeansUtil：方法是用于相同对象不同属性值的合并/" class="article-date">
-  <time datetime="2018-11-19T16:00:00.000Z" itemprop="datePublished">2018-11-20</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="article-title" itemprop="name">
-      CombineBeansUtil：方法是用于相同对象不同属性值的合并
-    </h1>
-  
 
-      </header>
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i> too young，too simple，sometimes naive </i>
+</div>
+
+<div class="index-container">
     
-    <div class="article-entry" itemprop="articleBody">
-      
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar ">
+            <img src="/images/avatar.jpg">
+        </div>
+        <div class="name">
+            <i>Wave Lou</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li>
+                <a href="/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>主页</span>
+                </a>
+            </li>
+            <li>
+                <a href="/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>标签</span>
+                </a>
+            </li>
+            <li>
+                <a href="/archives">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>存档</span>
+                </a>
+            </li>
+            <li>
+                <a href="/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>关于</span>
+                </a>
+            </li>
+            
+            <li>
+                <a id="search">
+                    <i class="iconfont icon-sousuo1"></i>
+                    <span>搜索</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input">
+            <span id="begin-search">搜索</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+
+        <div class="index-about-mobile">
+            <i> too young，too simple，sometimes naive </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        CombineBeansUtil：方法是用于相同对象不同属性值的合并
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">发布于：<span>2018-11-20 00:00:00</span></span>
+        
+        <span class="attr">标签：/
+        
+        <a class="tag" href="/tags/#Java JavaUtils" title="Java JavaUtils">Java JavaUtils</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
+</span>
+
+    </div>
+    <div class="post-content ">
         <blockquote>
 <p>今天碰到了两个Bean合并的案例。这里保留一份找来的工具类，修改了下。<br>注意：方法是用于相同对象不同属性值的合并</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line">&gt;<span class="keyword">import</span> java.lang.reflect.Field;</span><br><span class="line">&gt;<span class="keyword">import</span> java.lang.reflect.Modifier;</span><br><span class="line">&gt;</span><br><span class="line">&gt;<span class="comment">/**</span></span><br><span class="line"><span class="comment">&gt; * Description: 对象合并的工具类</span></span><br><span class="line"><span class="comment">&gt; *</span></span><br><span class="line"><span class="comment">&gt; * <span class="doctag">@author</span></span></span><br><span class="line"><span class="comment">&gt; * <span class="doctag">@date</span> 2018-09-11 上午11:27</span></span><br><span class="line"><span class="comment">&gt; */</span></span><br><span class="line">&gt;<span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CombineBeansUtil</span> </span>&#123;</span><br><span class="line">&gt;</span><br><span class="line">&gt;</span><br><span class="line">&gt;    <span class="comment">/**</span></span><br><span class="line"><span class="comment">&gt;     * 该方法是用于相同对象不同属性值的合并&lt;br&gt;</span></span><br><span class="line"><span class="comment">&gt;     * 如果两个相同对象中同一属性都有值，那么sourceBean中的值会覆盖tagetBean重点的值&lt;br&gt;</span></span><br><span class="line"><span class="comment">&gt;     * 如果sourceBean有值，targetBean没有，则采用sourceBean的值&lt;br&gt;</span></span><br><span class="line"><span class="comment">&gt;     * 如果sourceBean没有值，targetBean有，则保留targetBean的值</span></span><br><span class="line"><span class="comment">&gt;     * </span></span><br><span class="line"><span class="comment">&gt;     * <span class="doctag">@param</span> sourceBean    被提取的对象bean</span></span><br><span class="line"><span class="comment">&gt;     * <span class="doctag">@param</span> targetBean    用于合并的对象bean</span></span><br><span class="line"><span class="comment">&gt;     * <span class="doctag">@return</span> targetBean,合并后的对象</span></span><br><span class="line"><span class="comment">&gt;     */</span></span><br><span class="line">&gt;    <span class="keyword">public</span> <span class="keyword">static</span> &lt;T&gt; <span class="function">T <span class="title">combineSydwCore</span><span class="params">(T sourceBean, T targetBean)</span></span>&#123;</span><br><span class="line">&gt;        Class sourceBeanClass = sourceBean.getClass();</span><br><span class="line">&gt;        Class targetBeanClass = targetBean.getClass();</span><br><span class="line">&gt;</span><br><span class="line">&gt;        Field[] sourceFields = sourceBeanClass.getDeclaredFields();</span><br><span class="line">&gt;        Field[] targetFields = targetBeanClass.getDeclaredFields();</span><br><span class="line">&gt;        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;sourceFields.length; i++)&#123;</span><br><span class="line">&gt;            Field sourceField = sourceFields[i];</span><br><span class="line">&gt;            <span class="keyword">if</span>(Modifier.isStatic(sourceField.getModifiers()))&#123;</span><br><span class="line">&gt;                <span class="keyword">continue</span>;</span><br><span class="line">&gt;            &#125;</span><br><span class="line">&gt;            Field targetField = targetFields[i];</span><br><span class="line">&gt;            <span class="keyword">if</span>(Modifier.isStatic(targetField.getModifiers()))&#123;</span><br><span class="line">&gt;                <span class="keyword">continue</span>;</span><br><span class="line">&gt;            &#125;</span><br><span class="line">&gt;            sourceField.setAccessible(<span class="keyword">true</span>);</span><br><span class="line">&gt;            targetField.setAccessible(<span class="keyword">true</span>);</span><br><span class="line">&gt;            <span class="keyword">try</span> &#123;</span><br><span class="line">&gt;                <span class="keyword">if</span>( !(sourceField.get(sourceBean) == <span class="keyword">null</span>) &amp;&amp;  !<span class="string">"serialVersionUID"</span>.equals(sourceField.getName().toString()))&#123;</span><br><span class="line">&gt;                    targetField.set(targetBean,sourceField.get(sourceBean));</span><br><span class="line">&gt;                &#125;</span><br><span class="line">&gt;            &#125; <span class="keyword">catch</span> (IllegalArgumentException | IllegalAccessException e) &#123;</span><br><span class="line">&gt;                e.printStackTrace();</span><br><span class="line">&gt;            &#125;</span><br><span class="line">&gt;        &#125;</span><br><span class="line">&gt;        <span class="keyword">return</span> targetBean;</span><br><span class="line">&gt;    &#125;</span><br><span class="line">&gt;</span><br><span class="line">&gt;&#125;</span><br><span class="line">&gt;</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
 </blockquote>
 
-      
+        
+        <br>
+        <div id="comment-container">
+        </div>
+        <div id="disqus_thread"></div>
+
+        <div id="lv-container">
+        </div>
+
     </div>
-    <footer class="article-footer">
-      <a data-url="https://wavelou.github.io/2018/11/20/CombineBeansUtil：方法是用于相同对象不同属性值的合并/" data-id="cjwxnblkg0003qfi9ca9aao6g" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java-JavaUtils/">Java JavaUtils</a></li></ul>
+</div>
 
-    </footer>
-  </div>
-  
-    
-<nav id="article-nav">
-  
-    <a href="/2018/11/20/UTC时间和GMT时间/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          UTC时间和GMT时间
-        
-      </div>
-    </a>
-  
-  
-    <a href="/2018/11/20/从java.lang.String#intern说起JDK6之前和JDK7及之后关于字符串常量池的区别/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">从java.lang.String#intern说起JDK6之前和JDK7及之后关于字符串常量池的区别</div>
-    </a>
-  
-</nav>
-
-  
-</article>
-
-</section>
-        
-          <aside id="sidebar">
-  
-    
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Tags</h3>
-    <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/BigData-CDH/">BigData CDH</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/">Java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java-JavaUtils/">Java JavaUtils</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java-Spring/">Java Spring</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Jekyll-GithubPage/">Jekyll GithubPage</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/">MySQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Software/">Software</a></li></ul>
     </div>
-  </div>
+</div>
 
 
-  
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        
+
+        
+
+        
+
+        
+        <li>
+            <a target="_blank" href="https://github.com/wavelou">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-github"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+
+    </ul>
     
-  <div class="widget-wrap">
-    <h3 class="widget-title">Tag Cloud</h3>
-    <div class="widget tagcloud">
-      <a href="/tags/BigData-CDH/" style="font-size: 10px;">BigData CDH</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/Java-JavaUtils/" style="font-size: 10px;">Java JavaUtils</a> <a href="/tags/Java-Spring/" style="font-size: 13.33px;">Java Spring</a> <a href="/tags/Jekyll-GithubPage/" style="font-size: 10px;">Jekyll GithubPage</a> <a href="/tags/MySQL/" style="font-size: 10px;">MySQL</a> <a href="/tags/Software/" style="font-size: 16.67px;">Software</a>
-    </div>
-  </div>
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Archives</h3>
-    <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a></li></ul>
-    </div>
-  </div>
-
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Recent Posts</h3>
-    <div class="widget">
-      <ul>
-        
-          <li>
-            <a href="/2019/05/30/数据库事务隔离级别：分析脏读 & 不可重复读 & 幻读/">数据库事务隔离级别 - 分析脏读 &amp; 不可重复读 &amp; 幻读</a>
-          </li>
-        
-          <li>
-            <a href="/2019/04/15/IDEA快捷键（Windows）/">IDEA 快捷键(Win)</a>
-          </li>
-        
-          <li>
-            <a href="/2019/03/21/MacOs切换JDK命令（JDK811为例）/">Mac切换JDK命令(JDK 8/11)</a>
-          </li>
-        
-          <li>
-            <a href="/2019/03/06/AES_CBC_PKCS5Padding加解密的Java实现/">AES_CBC_PKCS5Padding加解密的Java实现</a>
-          </li>
-        
-          <li>
-            <a href="/2018/11/23/VS Code快捷键（Mac）/">VS Code快捷键MacOs版</a>
-          </li>
-        
-      </ul>
-    </div>
-  </div>
-
-  
-</aside>
-        
-      </div>
-      <footer id="footer">
-  
-  <div class="outer">
-    <div id="footer-info" class="inner">
-      &copy; 2019 Wave Lou<br>
-      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
-    </div>
-  </div>
+    <p>
+        <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+        </span>
+        <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+        </span>
+        Created By <a href="https://hexo.io/">Hexo</a>  Theme <a href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
 </footer>
-    </div>
-    <nav id="mobile-nav">
-  
-    <a href="/" class="mobile-nav-link">Home</a>
-  
-    <a href="/archives" class="mobile-nav-link">Archives</a>
-  
-</nav>
-    
-
-<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-
-
-  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
-  <script src="/fancybox/jquery.fancybox.pack.js"></script>
-
-
-<script src="/js/script.js"></script>
 
 
 
-  </div>
+
 </body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = "search.json"
+    window.hexo_root = "/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="/js/index.js"></script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+    <script>
+        /**
+         *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+         *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+        */
+        if( '' || '')
+        var disqus_config = function () {
+            this.page.url = '';  // Replace PAGE_URL with your page's canonical URL variable
+            this.page.identifier = ''; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+        };
+
+        (function() { // DON'T EDIT BELOW THIS LINE
+            var d = document, s = d.createElement('script');
+            s.src = 'https://airclouds-blog.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        })();
+    </script>
+
+
+
 </html>
