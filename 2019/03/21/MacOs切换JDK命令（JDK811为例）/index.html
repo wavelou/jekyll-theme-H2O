@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>Mac切换JDK命令(JDK 8/11) | waVeLou的Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="官网下载 JDK8 和 JDK11  安装两个版本的jdk完，打开终端查看安装目录所在位置  /Library/Java/JavaVirtualMachines/   配置脚本 在当前用户目录下创建的一个文件：.bash_profile_jdk 1vim ~/.bash_profile_jdk  配置JDK相关路径和别名 123456789101112# setting jdk8export J">
+<meta name="keywords" content="Java">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Mac切换JDK命令(JDK 8&#x2F;11)">
+<meta property="og:url" content="https://wavelou.github.io/2019/03/21/MacOs切换JDK命令（JDK811为例）/index.html">
+<meta property="og:site_name" content="waVeLou的Blog">
+<meta property="og:description" content="官网下载 JDK8 和 JDK11  安装两个版本的jdk完，打开终端查看安装目录所在位置  /Library/Java/JavaVirtualMachines/   配置脚本 在当前用户目录下创建的一个文件：.bash_profile_jdk 1vim ~/.bash_profile_jdk  配置JDK相关路径和别名 123456789101112# setting jdk8export J">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="https://wavelou.github.io/images/upload/change-jdk.png">
+<meta property="og:updated_time" content="2019-06-15T14:33:38.804Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Mac切换JDK命令(JDK 8&#x2F;11)">
+<meta name="twitter:description" content="官网下载 JDK8 和 JDK11  安装两个版本的jdk完，打开终端查看安装目录所在位置  /Library/Java/JavaVirtualMachines/   配置脚本 在当前用户目录下创建的一个文件：.bash_profile_jdk 1vim ~/.bash_profile_jdk  配置JDK相关路径和别名 123456789101112# setting jdk8export J">
+<meta name="twitter:image" content="https://wavelou.github.io/images/upload/change-jdk.png">
+  
+    <link rel="alternate" href="/atom.xml" title="waVeLou的Blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">waVeLou的Blog</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://wavelou.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-MacOs切换JDK命令（JDK811为例）" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/03/21/MacOs切换JDK命令（JDK811为例）/" class="article-date">
+  <time datetime="2019-03-20T16:00:00.000Z" itemprop="datePublished">2019-03-21</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Mac切换JDK命令(JDK 8/11)
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <ol>
+<li><p>官网下载 JDK8 和 JDK11</p>
+</li>
+<li><p>安装两个版本的jdk完，打开终端查看安装目录所在位置</p>
+<blockquote>
+<p>/Library/Java/JavaVirtualMachines/</p>
+</blockquote>
+</li>
+<li><p>配置脚本</p>
+<p>在当前用户目录下创建的一个文件：.bash_profile_jdk</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim ~/.bash_profile_jdk</span><br></pre></td></tr></table></figure>
+
+<p>配置JDK相关路径和别名</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> setting jdk8</span><br><span class="line">export JAVA_8_HOME=`/usr/libexec/java_home -v 1.8`</span><br><span class="line"><span class="meta">#</span> setting jdk11</span><br><span class="line">export JAVA_11_HOME=`/usr/libexec/java_home -v 11`</span><br><span class="line"><span class="meta">#</span> 默认为JDK8</span><br><span class="line">export JAVA_HOME=$JAVA_8_HOME</span><br><span class="line"><span class="meta">#</span> 切换命令</span><br><span class="line">alias jdk8='export JAVA_HOME=$JAVA_8_HOME;export PATH=$JAVA_HOME/bin:$PATH'</span><br><span class="line">alias jdk11='export JAVA_HOME=$JAVA_11_HOME;export PATH=$JAVA_HOME/bin:$PATH'</span><br><span class="line"><span class="meta">#</span>export JAVA_HOME=$(/usr/libexec/java_home)</span><br><span class="line">export PATH=$JAVA_HOME/bin:$PATH</span><br><span class="line">export CLASS_PATH=$JAVA_HOME/lib</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ol>
+<ol start="4">
+<li><p>执行配置文件</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">source ~/.bash_profile_jdk</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>这样基本已经配置执行完毕，进行验证</p>
+<p>终端输入jdk8就行切换jdk8版本，并且查看版本</p>
+<p><img src="/images/upload/change-jdk.png" alt="image-20190322164311879"></p>
+</li>
+</ol>
+<hr>
+<p>找到个新方法：</p>
+<p><a href="https://sdkman.io/" target="_blank" rel="noopener">SDK Man</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://wavelou.github.io/2019/03/21/MacOs切换JDK命令（JDK811为例）/" data-id="cjwxnblkq000hqfi9wpauscdm" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2019/04/15/IDEA快捷键（Windows）/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          IDEA 快捷键(Win)
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/03/06/AES_CBC_PKCS5Padding加解密的Java实现/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">AES_CBC_PKCS5Padding加解密的Java实现</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/BigData-CDH/">BigData CDH</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/">Java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java-JavaUtils/">Java JavaUtils</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java-Spring/">Java Spring</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Jekyll-GithubPage/">Jekyll GithubPage</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/">MySQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Software/">Software</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/BigData-CDH/" style="font-size: 10px;">BigData CDH</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/Java-JavaUtils/" style="font-size: 10px;">Java JavaUtils</a> <a href="/tags/Java-Spring/" style="font-size: 13.33px;">Java Spring</a> <a href="/tags/Jekyll-GithubPage/" style="font-size: 10px;">Jekyll GithubPage</a> <a href="/tags/MySQL/" style="font-size: 10px;">MySQL</a> <a href="/tags/Software/" style="font-size: 16.67px;">Software</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/05/30/数据库事务隔离级别：分析脏读 & 不可重复读 & 幻读/">数据库事务隔离级别 - 分析脏读 &amp; 不可重复读 &amp; 幻读</a>
+          </li>
+        
+          <li>
+            <a href="/2019/04/15/IDEA快捷键（Windows）/">IDEA 快捷键(Win)</a>
+          </li>
+        
+          <li>
+            <a href="/2019/03/21/MacOs切换JDK命令（JDK811为例）/">Mac切换JDK命令(JDK 8/11)</a>
+          </li>
+        
+          <li>
+            <a href="/2019/03/06/AES_CBC_PKCS5Padding加解密的Java实现/">AES_CBC_PKCS5Padding加解密的Java实现</a>
+          </li>
+        
+          <li>
+            <a href="/2018/11/23/VS Code快捷键（Mac）/">VS Code快捷键MacOs版</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 Wave Lou<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

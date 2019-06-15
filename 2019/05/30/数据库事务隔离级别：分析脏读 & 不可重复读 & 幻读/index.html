@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>数据库事务隔离级别 - 分析脏读 &amp; 不可重复读 &amp; 幻读 | waVeLou的Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="数据库事务隔离级别 - 分析脏读 &amp;amp; 不可重复读 &amp;amp; 幻读阅读目录  一 数据库事务的隔离级别 二 不同事务级别带来的并发问题 三 例子比较不可重复读和幻读  一 数据库事务的隔离级别数据库事务的隔离级别有4个，由低到高依次为Read uncommitted 、Read committed 、Repeatable read 、Serializable ，这四个级别可以逐个解决脏读">
+<meta name="keywords" content="MySQL">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据库事务隔离级别 - 分析脏读 &amp; 不可重复读 &amp; 幻读">
+<meta property="og:url" content="https://wavelou.github.io/2019/05/30/数据库事务隔离级别：分析脏读 & 不可重复读 & 幻读/index.html">
+<meta property="og:site_name" content="waVeLou的Blog">
+<meta property="og:description" content="数据库事务隔离级别 - 分析脏读 &amp;amp; 不可重复读 &amp;amp; 幻读阅读目录  一 数据库事务的隔离级别 二 不同事务级别带来的并发问题 三 例子比较不可重复读和幻读  一 数据库事务的隔离级别数据库事务的隔离级别有4个，由低到高依次为Read uncommitted 、Read committed 、Repeatable read 、Serializable ，这四个级别可以逐个解决脏读">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="https://wavelou.github.io/images/upload/%E4%BA%8B%E7%89%A9%E7%BA%A7%E5%88%AB.png">
+<meta property="og:image" content="https://wavelou.github.io/images/upload/%E8%84%8F%E8%AF%BB.png">
+<meta property="og:image" content="https://wavelou.github.io/images/upload/%E4%B8%8D%E5%8F%AF%E9%87%8D%E5%A4%8D%E8%AF%BB.png">
+<meta property="og:image" content="https://wavelou.github.io/images/upload/%E5%B9%BB%E8%AF%BB.png">
+<meta property="og:updated_time" content="2019-06-15T14:35:46.229Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="数据库事务隔离级别 - 分析脏读 &amp; 不可重复读 &amp; 幻读">
+<meta name="twitter:description" content="数据库事务隔离级别 - 分析脏读 &amp;amp; 不可重复读 &amp;amp; 幻读阅读目录  一 数据库事务的隔离级别 二 不同事务级别带来的并发问题 三 例子比较不可重复读和幻读  一 数据库事务的隔离级别数据库事务的隔离级别有4个，由低到高依次为Read uncommitted 、Read committed 、Repeatable read 、Serializable ，这四个级别可以逐个解决脏读">
+<meta name="twitter:image" content="https://wavelou.github.io/images/upload/%E4%BA%8B%E7%89%A9%E7%BA%A7%E5%88%AB.png">
+  
+    <link rel="alternate" href="/atom.xml" title="waVeLou的Blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">waVeLou的Blog</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://wavelou.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-数据库事务隔离级别：分析脏读 &amp; 不可重复读 &amp; 幻读" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/05/30/数据库事务隔离级别：分析脏读 & 不可重复读 & 幻读/" class="article-date">
+  <time datetime="2019-05-29T16:00:00.000Z" itemprop="datePublished">2019-05-30</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      数据库事务隔离级别 - 分析脏读 &amp; 不可重复读 &amp; 幻读
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="数据库事务隔离级别-分析脏读-amp-不可重复读-amp-幻读"><a href="#数据库事务隔离级别-分析脏读-amp-不可重复读-amp-幻读" class="headerlink" title="数据库事务隔离级别 - 分析脏读 &amp; 不可重复读 &amp; 幻读"></a><a href="https://www.cnblogs.com/balfish/p/8298296.html" target="_blank" rel="noopener">数据库事务隔离级别 - 分析脏读 &amp; 不可重复读 &amp; 幻读</a></h1><p><strong>阅读目录</strong></p>
+<ul>
+<li><a href="https://www.cnblogs.com/balfish/p/8298296.html#_label0" target="_blank" rel="noopener">一 数据库事务的隔离级别</a></li>
+<li><a href="https://www.cnblogs.com/balfish/p/8298296.html#_label1" target="_blank" rel="noopener">二 不同事务级别带来的并发问题</a></li>
+<li><a href="https://www.cnblogs.com/balfish/p/8298296.html#_label2" target="_blank" rel="noopener">三 例子比较不可重复读和幻读</a></li>
+</ul>
+<h2 id="一-数据库事务的隔离级别"><a href="#一-数据库事务的隔离级别" class="headerlink" title="一 数据库事务的隔离级别"></a>一 数据库事务的隔离级别</h2><p>数据库事务的隔离级别有4个，由低到高依次为Read uncommitted 、Read committed 、Repeatable read 、Serializable ，这四个级别可以逐个解决脏读 、不可重复读 、幻读这几类问题。</p>
+<p><img src="/images/upload/%E4%BA%8B%E7%89%A9%E7%BA%A7%E5%88%AB.png" alt="事物级别"></p>
+<h3 id="1-Read-UnCommitted-读未提交"><a href="#1-Read-UnCommitted-读未提交" class="headerlink" title="1. Read UnCommitted(读未提交)"></a>1. Read UnCommitted(读未提交)</h3><p>最低的隔离级别。一个事务可以读取另一个事务并未提交的更新结果。</p>
+<h3 id="2-Read-Committed-读提交"><a href="#2-Read-Committed-读提交" class="headerlink" title="2. Read Committed(读提交)"></a>2. Read Committed(读提交)</h3><p>大部分数据库采用的默认隔离级别。一个事务的更新操作结果只有在该事务提交之后，另一个事务才可以的读取到同一笔数据更新后的结果。</p>
+<h3 id="3-Repeatable-Read-重复读"><a href="#3-Repeatable-Read-重复读" class="headerlink" title="3. Repeatable Read(重复读)"></a>3. Repeatable Read(重复读)</h3><p><strong>mysql的默认级别</strong>。整个事务过程中，对同一笔数据的读取结果是相同的，不管其他事务是否在对共享数据进行更新，也不管更新提交与否。</p>
+<h3 id="4-Serializable-序列化"><a href="#4-Serializable-序列化" class="headerlink" title="4. Serializable(序列化)"></a>4. Serializable(序列化)</h3><p>最高隔离级别。所有事务操作依次顺序执行。注意这会导致并发度下降，性能最差。通常会用其他并发级别加上相应的并发锁机制来取代它。</p>
+<h2 id="二-不同事务级别带来的并发问题"><a href="#二-不同事务级别带来的并发问题" class="headerlink" title="二 不同事务级别带来的并发问题"></a>二 不同事务级别带来的并发问题</h2><h3 id="1-脏读"><a href="#1-脏读" class="headerlink" title="1 脏读"></a>1 脏读</h3><p>脏读发生在一个事务A读取了被另一个事务B修改，但是还未提交的数据。假如B回退，则事务A读取的是无效的数据。这跟不可重复读类似，但是第二个事务不需要执行提交。 </p>
+<p><img src="/images/upload/%E8%84%8F%E8%AF%BB.png" alt="脏读"> </p>
+<h3 id="2-不可重复读"><a href="#2-不可重复读" class="headerlink" title="2 不可重复读"></a>2 不可重复读</h3><p>在基于锁的并行控制方法中，如果在执行select时不添加读锁，就会发生不可重复读问题。</p>
+<p>在多版本并行控制机制中，当一个遇到提交冲突的事务需要回退但却被释放时，会发生不可重复读问题。</p>
+<p><img src="/images/upload/%E4%B8%8D%E5%8F%AF%E9%87%8D%E5%A4%8D%E8%AF%BB.png" alt="不可重复读"></p>
+<p>在上面这个例子中，事务2提交成功，它所做的修改已经可见。然而，事务1已经读取了一个其它的值。在序列化和可重复读的隔离级别中，数据库管理系统会返回旧值，即在被事务2修改之前的值。在提交读和未提交读隔离级别下，可能会返回被更新的值，这就是“不可重复读”。</p>
+<p>有两个策略可以防止这个问题的发生：</p>
+<p>(1) 推迟事务2的执行，直至事务1提交或者回退。这种策略在使用锁时应用。</p>
+<p>(2) 而在多版本并行控制中，事务2可以被先提交。而事务1，继续执行在旧版本的数据上。当事务1终于尝试提交时，数据库会检验它的结果是否和事务1、事务2顺序执行时一样。如果是，则事务1提交成功。如果不是，事务1会被回退。</p>
+<p>3 <strong>幻读</strong> </p>
+<p>幻读发生在当两个完全相同的查询执行时，第二次查询所返回的结果集跟第一个查询不相同。</p>
+<p>发生的情况：没有范围锁。</p>
+<p><img src="/images/upload/%E5%B9%BB%E8%AF%BB.png" alt="幻读"></p>
+<h2 id="三-例子比较不可重复读和幻读"><a href="#三-例子比较不可重复读和幻读" class="headerlink" title="三 例子比较不可重复读和幻读"></a>三 例子比较不可重复读和幻读</h2><h3 id="1-不可重复读"><a href="#1-不可重复读" class="headerlink" title="1 不可重复读"></a>1 不可重复读</h3><p>不可重复读的重点是修改: 同样的条件, 你读取过的数据, 再次读取出来发现值不一样了</p>
+<p>例子:</p>
+<p>在事务1中，Mary 读取了自己的工资为1000,操作并没有完成 </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">con1 = getConnection();  </span><br><span class="line">select salary from employee empId =&quot;Mary&quot;;</span><br></pre></td></tr></table></figure>
+
+<p>在事务2中，这时财务人员修改了Mary的工资为2000,并提交了事务. </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">con2 = getConnection();  </span><br><span class="line">update employee set salary = 2000;  </span><br><span class="line">con2.commit();</span><br></pre></td></tr></table></figure>
+
+<p>在事务1中，Mary 再次读取自己的工资时，工资变为了2000 </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select salary from employee empId =&quot;Mary&quot;;</span><br></pre></td></tr></table></figure>
+
+<p>在一个事务中前后两次读取的结果并不致，导致了不可重复读。</p>
+<h3 id="2-幻读"><a href="#2-幻读" class="headerlink" title="2 幻读"></a>2 幻读</h3><p>幻读的重点在于新增或者删除 (数据条数变化)。同样的条件, 第1次和第2次读出来的记录数不一样</p>
+<p>例子：</p>
+<p>目前工资为1000的员工有10人。<br>事务1,读取所有工资为1000的员工。 </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">con1 = getConnection();  </span><br><span class="line">Select * from employee where salary =1000;</span><br></pre></td></tr></table></figure>
+
+<p>共读取10条记录 </p>
+<p>这时另一个事务向employee表插入了一条员工记录，工资也为1000 </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">con2 = getConnection();  </span><br><span class="line">Insert into employee(empId,salary) values(&quot;Lili&quot;,1000);  </span><br><span class="line">con2.commit();</span><br></pre></td></tr></table></figure>
+
+<p>事务1再次读取所有工资为1000的员工 </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select * from employee where salary =1000;</span><br></pre></td></tr></table></figure>
+
+<p>共读取到了11条记录，这就像产生了幻读。 </p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://wavelou.github.io/2019/05/30/数据库事务隔离级别：分析脏读 & 不可重复读 & 幻读/" data-id="cjwxnblks000mqfi9wtoyoetq" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MySQL/">MySQL</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2019/04/15/IDEA快捷键（Windows）/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">IDEA 快捷键(Win)</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/BigData-CDH/">BigData CDH</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/">Java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java-JavaUtils/">Java JavaUtils</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java-Spring/">Java Spring</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Jekyll-GithubPage/">Jekyll GithubPage</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/">MySQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Software/">Software</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/BigData-CDH/" style="font-size: 10px;">BigData CDH</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/Java-JavaUtils/" style="font-size: 10px;">Java JavaUtils</a> <a href="/tags/Java-Spring/" style="font-size: 13.33px;">Java Spring</a> <a href="/tags/Jekyll-GithubPage/" style="font-size: 10px;">Jekyll GithubPage</a> <a href="/tags/MySQL/" style="font-size: 10px;">MySQL</a> <a href="/tags/Software/" style="font-size: 16.67px;">Software</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/05/30/数据库事务隔离级别：分析脏读 & 不可重复读 & 幻读/">数据库事务隔离级别 - 分析脏读 &amp; 不可重复读 &amp; 幻读</a>
+          </li>
+        
+          <li>
+            <a href="/2019/04/15/IDEA快捷键（Windows）/">IDEA 快捷键(Win)</a>
+          </li>
+        
+          <li>
+            <a href="/2019/03/21/MacOs切换JDK命令（JDK811为例）/">Mac切换JDK命令(JDK 8/11)</a>
+          </li>
+        
+          <li>
+            <a href="/2019/03/06/AES_CBC_PKCS5Padding加解密的Java实现/">AES_CBC_PKCS5Padding加解密的Java实现</a>
+          </li>
+        
+          <li>
+            <a href="/2018/11/23/VS Code快捷键（Mac）/">VS Code快捷键MacOs版</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 Wave Lou<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

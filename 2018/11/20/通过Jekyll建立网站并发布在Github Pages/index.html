@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>通过 Jekyll 建立网站并发布在 Github Pages | waVeLou的Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="弄了半天，总算弄好了。试了好几个模板，最终选了H20 。简洁明了，该有的都有了。也推荐大家使用。 预备知识：Git、Markdown、一点点前段技能   什么是Github PagesGithub Page本质上是一个在你Github上的一个仓库。Github很有爱的会将与你用户名同名的项目发布一个静态见面，用来分享想法和代码。  图片来源自网络. 鸣谢@JackyRoc  创建仓库在Githu">
+<meta name="keywords" content="Jekyll GithubPage">
+<meta property="og:type" content="article">
+<meta property="og:title" content="通过 Jekyll 建立网站并发布在 Github Pages">
+<meta property="og:url" content="https://wavelou.github.io/2018/11/20/通过Jekyll建立网站并发布在Github Pages/index.html">
+<meta property="og:site_name" content="waVeLou的Blog">
+<meta property="og:description" content="弄了半天，总算弄好了。试了好几个模板，最终选了H20 。简洁明了，该有的都有了。也推荐大家使用。 预备知识：Git、Markdown、一点点前段技能   什么是Github PagesGithub Page本质上是一个在你Github上的一个仓库。Github很有爱的会将与你用户名同名的项目发布一个静态见面，用来分享想法和代码。  图片来源自网络. 鸣谢@JackyRoc  创建仓库在Githu">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="https://wavelou.github.io/images/upload/blog-view.png">
+<meta property="og:image" content="https://wavelou.github.io/images/upload/create-repository.png">
+<meta property="og:image" content="https://wavelou.github.io/images/upload/to-setting.png">
+<meta property="og:image" content="https://wavelou.github.io/images/upload/setting.png">
+<meta property="og:image" content="https://wavelou.github.io/images/upload/theme.png">
+<meta property="og:updated_time" content="2019-06-15T14:37:22.939Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="通过 Jekyll 建立网站并发布在 Github Pages">
+<meta name="twitter:description" content="弄了半天，总算弄好了。试了好几个模板，最终选了H20 。简洁明了，该有的都有了。也推荐大家使用。 预备知识：Git、Markdown、一点点前段技能   什么是Github PagesGithub Page本质上是一个在你Github上的一个仓库。Github很有爱的会将与你用户名同名的项目发布一个静态见面，用来分享想法和代码。  图片来源自网络. 鸣谢@JackyRoc  创建仓库在Githu">
+<meta name="twitter:image" content="https://wavelou.github.io/images/upload/blog-view.png">
+  
+    <link rel="alternate" href="/atom.xml" title="waVeLou的Blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">waVeLou的Blog</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://wavelou.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-通过Jekyll建立网站并发布在Github Pages" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/11/20/通过Jekyll建立网站并发布在Github Pages/" class="article-date">
+  <time datetime="2018-11-19T16:00:00.000Z" itemprop="datePublished">2018-11-20</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      通过 Jekyll 建立网站并发布在 Github Pages
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>弄了半天，总算弄好了。试了好几个模板，最终选了<a href="https://github.com/kaeyleo/jekyll-theme-H2O" target="_blank" rel="noopener">H20</a> 。简洁明了，该有的都有了。也推荐大家使用。</p>
+<p>预备知识：Git、Markdown、一点点前段技能</p>
+</blockquote>
+<p><img src="/images/upload/blog-view.png" alt="刚搭完的样子"></p>
+<h2 id="什么是Github-Pages"><a href="#什么是Github-Pages" class="headerlink" title="什么是Github Pages"></a>什么是<a href="https://pages.github.com/" target="_blank" rel="noopener">Github Pages</a></h2><p>Github Page本质上是一个在你Github上的一个仓库。Github很有爱的会将与你用户名同名的项目发布一个静态见面，用来分享想法和代码。</p>
+<blockquote>
+<p><a href="https://www.cnblogs.com/jackyroc/p/7681938.html" target="_blank" rel="noopener">图片来源自网络</a>. 鸣谢@<a href="https://home.cnblogs.com/u/jackyroc/" target="_blank" rel="noopener">JackyRoc</a></p>
+</blockquote>
+<h3 id="创建仓库"><a href="#创建仓库" class="headerlink" title="创建仓库"></a>创建仓库</h3><p>在Github首页右上角头像左侧加号点选择 New repositor(新存储库)或<a href="https://github.com/new" target="_blank" rel="noopener">点击这里</a>进行创建一个仓库.</p>
+<p><img src="/images/upload/create-repository.png" alt="创建仓库"></p>
+<h3 id="开启Github-Pages"><a href="#开启Github-Pages" class="headerlink" title="开启Github Pages"></a>开启Github Pages</h3><p>进入设置</p>
+<p><img src="/images/upload/to-setting.png" alt="进入设置"></p>
+<p>找到这一块</p>
+<p><img src="/images/upload/setting.png" alt="设置"></p>
+<p>当你的仓库名为：用户名.github.io 之后默认开启Github Pages</p>
+<p>现在随便选择一个主题,选择上图的 Choose a theme 之后会跳转到下面这个页面</p>
+<p><img src="/images/upload/theme.png" alt="选择主题"></p>
+<p>设置完毕后你就可以通过 username.github.io (username为你的用户名访问你的博客了)</p>
+<h2 id="个性化Github-Pages"><a href="#个性化Github-Pages" class="headerlink" title="个性化Github Pages"></a>个性化Github Pages</h2><p>Github Pages有各种个性化方式。记住本质：展示静态页面。所以只要是能生成静态的方式都可以选用。</p>
+<p>在今天建站的过程中我找到两种 Hexo 以及 Jekyll。可以自己写也可以在别人的代码上改。Github上有很多项目。不过我在今天的使用中，作为一个非专业前端，一个个需要的环境装过来花了好久。最后火大、干脆fork了一份代码。然后在上面改。还省了编译的过程。我认为这是最简单的方法。</p>
+<p>还有好些其他功能，比如自定义域名什么的。我暂时不搞，所以没有去研究。</p>
+<p>隆重推荐我使用的主题：<a href="https://github.com/kaeyleo/jekyll-theme-H2O" target="_blank" rel="noopener">H20</a></p>
+<h3 id="使用H2O模板"><a href="#使用H2O模板" class="headerlink" title="使用H2O模板"></a>使用H2O模板</h3><p>大体上的设置就不说了，基本上在他的项目里都有写。耐心阅读即可。现在说下有两点没提到的。</p>
+<h5 id="修改仓库信息"><a href="#修改仓库信息" class="headerlink" title="修改仓库信息"></a>修改仓库信息</h5><p>fork过来以后，在仓库的setting中，将Repository name改为以username.github.io (username为你的用户名)。如果原来已经存在了这个仓库，可以改掉或者删掉。</p>
+<h5 id="一开始fork过来找不到页面"><a href="#一开始fork过来找不到页面" class="headerlink" title="一开始fork过来找不到页面"></a>一开始fork过来找不到页面</h5><p>这时候只需要在_config.yml中配置站点</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Site settings 配置站点</span></span><br><span class="line"><span class="attr">title:</span> <span class="string">'waVeLou的Blog'</span></span><br><span class="line"><span class="attr">description:</span> <span class="string">'too young，too simple，sometimes naive'</span></span><br><span class="line"><span class="attr">keyword:</span> <span class="string">'wavelou java'</span></span><br><span class="line"><span class="attr">url:</span> <span class="string">'https://wavelou.github.io/'</span> <span class="comment"># your host</span></span><br></pre></td></tr></table></figure>
+
+<h5 id="上传文章"><a href="#上传文章" class="headerlink" title="上传文章"></a>上传文章</h5><p>在_posts文件夹中的md文件就是你的文章。但是命名格式有严格要求（年-月-日-title）。</p>
+<p>在文章的一开头有一段信息要注意修改:</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="attr">layout:</span> <span class="string">post</span></span><br><span class="line"><span class="attr">title:</span> <span class="string">'通过 Jekyll 建立网站并发布在 Github Pages'</span></span><br><span class="line"><span class="attr">date:</span> <span class="number">2018</span><span class="bullet">-11</span><span class="bullet">-20</span></span><br><span class="line"><span class="attr">author:</span> <span class="string">Wave</span> <span class="string">Lou</span></span><br><span class="line"><span class="attr">tags:</span> <span class="string">Jekyll</span> <span class="string">GithubPage</span></span><br><span class="line"><span class="meta">---</span></span><br></pre></td></tr></table></figure>
+
+<p>图片放在 assets/img/ 底下就能找到。</p>
+<p>写完以后上传到Github即可。</p>
+<p>暂时想到就这么多。准备下班~</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://wavelou.github.io/2018/11/20/通过Jekyll建立网站并发布在Github Pages/" data-id="cjwxnblkp000fqfi9e30uitpk" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Jekyll-GithubPage/">Jekyll GithubPage</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/11/20/Spring MVC下对Request请求中日期字符串转换成Date类型的总结/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Spring MVC下对Request请求中日期字符串转换成Date类型的总结
+        
+      </div>
+    </a>
+  
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/BigData-CDH/">BigData CDH</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/">Java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java-JavaUtils/">Java JavaUtils</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java-Spring/">Java Spring</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Jekyll-GithubPage/">Jekyll GithubPage</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/">MySQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Software/">Software</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/BigData-CDH/" style="font-size: 10px;">BigData CDH</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/Java-JavaUtils/" style="font-size: 10px;">Java JavaUtils</a> <a href="/tags/Java-Spring/" style="font-size: 13.33px;">Java Spring</a> <a href="/tags/Jekyll-GithubPage/" style="font-size: 10px;">Jekyll GithubPage</a> <a href="/tags/MySQL/" style="font-size: 10px;">MySQL</a> <a href="/tags/Software/" style="font-size: 16.67px;">Software</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/05/30/数据库事务隔离级别：分析脏读 & 不可重复读 & 幻读/">数据库事务隔离级别 - 分析脏读 &amp; 不可重复读 &amp; 幻读</a>
+          </li>
+        
+          <li>
+            <a href="/2019/04/15/IDEA快捷键（Windows）/">IDEA 快捷键(Win)</a>
+          </li>
+        
+          <li>
+            <a href="/2019/03/21/MacOs切换JDK命令（JDK811为例）/">Mac切换JDK命令(JDK 8/11)</a>
+          </li>
+        
+          <li>
+            <a href="/2019/03/06/AES_CBC_PKCS5Padding加解密的Java实现/">AES_CBC_PKCS5Padding加解密的Java实现</a>
+          </li>
+        
+          <li>
+            <a href="/2018/11/23/VS Code快捷键（Mac）/">VS Code快捷键MacOs版</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 Wave Lou<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>
