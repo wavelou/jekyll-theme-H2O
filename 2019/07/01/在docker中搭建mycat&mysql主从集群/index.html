@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="油光发亮浪打浪">
+    <meta name="keyword" content>
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+        在docker中搭建mycat&amp;mysql主从集群 - WaveLou的博客 | WaveLou&#39;s Blog
+        
+    </title>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/aircloud.css">
+    <link rel="stylesheet" href="/css/gitment.css">
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i> too young，too simple，sometimes naive </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar ">
+            <img src="/images/avatar.jpg">
+        </div>
+        <div class="name">
+            <i>Wave Lou</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li>
+                <a href="/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>主页</span>
+                </a>
+            </li>
+            <li>
+                <a href="/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>标签</span>
+                </a>
+            </li>
+            <li>
+                <a href="/archives">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>存档</span>
+                </a>
+            </li>
+            <li>
+                <a href="/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>关于</span>
+                </a>
+            </li>
+            
+            <li>
+                <a id="search">
+                    <i class="iconfont icon-sousuo1"></i>
+                    <span>搜索</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#在docker中搭建mycat-amp-mysql主从集群"><span class="toc-text">在docker中搭建mycat&amp;mysql主从集群</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#docker安装"><span class="toc-text">docker安装</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#搭建Mysql主从集群"><span class="toc-text">搭建Mysql主从集群</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#搭建MyCat"><span class="toc-text">搭建MyCat</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#注意点（T。T-其实就是坑点。至于为什么是坑，我得问问浪费的时间）"><span class="toc-text">注意点（T。T 其实就是坑点。至于为什么是坑，我得问问浪费的时间）</span></a></li></ol></li></ol></li></ol>
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input">
+            <span id="begin-search">搜索</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+
+        <div class="index-about-mobile">
+            <i> too young，too simple，sometimes naive </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        在docker中搭建mycat&amp;mysql主从集群
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">发布于：<span>2019-07-01 00:00:00</span></span>
+        
+        <span class="attr">标签：/
+        
+        <a class="tag" href="/tags/#MySQL Docker MyCat" title="MySQL Docker MyCat">MySQL Docker MyCat</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
+</span>
+
+    </div>
+    <div class="post-content ">
+        <h1 id="在docker中搭建mycat-amp-mysql主从集群"><a href="#在docker中搭建mycat-amp-mysql主从集群" class="headerlink" title="在docker中搭建mycat&amp;mysql主从集群"></a>在docker中搭建mycat&amp;mysql主从集群</h1><blockquote>
+<p>版本信息：</p>
+<p>Docker:    Docker Desktop v2.0.0.3 (Engine:18.09.2)</p>
+<p>MySQL：    8.0.16</p>
+<p>MyCat：    1.6.7</p>
+<p>系统：     MacOs Mojava 10.14.5    </p>
+</blockquote>
+<h2 id="docker安装"><a href="#docker安装" class="headerlink" title="docker安装"></a>docker安装</h2><p>我是直接到 <a href="https://www.docker.com/products/docker-desktop" target="_blank" rel="noopener">官网 </a>下载了个Docker Desktop然后运行就完事了。</p>
+<blockquote>
+<p>几个概念：</p>
+<p>镜像（image）：就是 docker images 显示的内容。可以理解为安装包（不专业，不要嘲笑我）<a href="https://hub.docker.com/" target="_blank" rel="noopener">点这里可以找镜像</a></p>
+<p>容器：就是 docker ps -a 显示的内容。简单的说可以理解为虚拟机（千万不要真的当成是虚拟机）</p>
+<p>随手找了篇文章 <a href="http://dockone.io/article/6051" target="_blank" rel="noopener">Docker 的一些概念</a>。最好去官网看。</p>
+<p>附带一个 docker  <a href="https://www.runoob.com/docker/docker-image-usage.html" target="_blank" rel="noopener">简易说明</a></p>
+</blockquote>
+<h2 id="搭建Mysql主从集群"><a href="#搭建Mysql主从集群" class="headerlink" title="搭建Mysql主从集群"></a>搭建Mysql主从集群</h2><p><a href="https://www.cnblogs.com/songwenjie/p/9371422.html" target="_blank" rel="noopener"><a href="https://www.cnblogs.com/songwenjie/p/9371422.html" target="_blank" rel="noopener">基于Docker的Mysql主从复制搭建</a></a></p>
+<p>我基本上看着搭的，不过我直接 pull 的最新。没啥问题。除了底下说的几个注意点！</p>
+<blockquote>
+<p>这里有说如果碰到问题的第三点，pos 不对，的情况下。在 Master 进入 mysql，执行 show master status。会看到 file 和 position。这里跟主从复制的原理有关系。其实 slave 是根据从 master 拷贝来的日志文件里的指令来实现主从的。这里的 file 指的就是当前的日志文件， position 指读到日志的位置（如果谬误，请指正）。在 change master 这条命令里可以修改 master_log_file 和 master_log_pos 来看看能不能修复问题。这里可能涉及一个命令 reset slave 。</p>
+</blockquote>
+<h2 id="搭建MyCat"><a href="#搭建MyCat" class="headerlink" title="搭建MyCat"></a>搭建MyCat</h2><p>推荐一篇文章 <a href="https://www.jianshu.com/p/4686b123a546" target="_blank" rel="noopener">Docker构建MyCat</a> ，排版清晰，主题明了。基本上没啥问题。照着做就行了。</p>
+<p><a href="http://www.mycat.io/" target="_blank" rel="noopener">MyCat 官网</a></p>
+<blockquote>
+<p>里面的 /usr/local/ 指的是容器里面的路径不是宿主机。整个 DockerFile 只有压缩包是宿主机的内容</p>
+</blockquote>
+<p>注意最后生成镜像的命令稍微改下就行</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker build -t mycat-1.6.7.1 -f mycat-dockerfile .</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="注意点（T。T-其实就是坑点。至于为什么是坑，我得问问浪费的时间）"><a href="#注意点（T。T-其实就是坑点。至于为什么是坑，我得问问浪费的时间）" class="headerlink" title="注意点（T。T 其实就是坑点。至于为什么是坑，我得问问浪费的时间）"></a>注意点（T。T 其实就是坑点。至于为什么是坑，我得问问浪费的时间）</h3><ol>
+<li><p>MySQL 8.* 的远程连接权限</p>
+<p><a href="https://blog.csdn.net/liliuqing/article/details/88723409" target="_blank" rel="noopener">mysql8.0.15用户root登录开启远程访问权限</a></p>
+<p>这里特别需要注意的是，MySQL 8 之后修改了加密规则。所以原来的授权命令 GRANT ALL PRIVILEGES ON <em>.</em> TO ‘root’@’%’ IDENTIFIED BY ‘123456’  不能用了。</p>
+</li>
+</ol>
+<ol>
+<li><p>Host（宿主机）的地址</p>
+<p>在 MyCat 的 scheme.xml 文件里以及主从配置的时候需要填写两个 MySQL 的地址。因为我都是装在我自己的电脑上只不过是端口有差异。所以我需要用到宿主机的 IP。因为我电脑上网关实在太多，ifconfig 出来的东西我看着都头大。最后在查到了一段话。</p>
+<p><a href="https://www.jianshu.com/p/6f20023e4586" target="_blank" rel="noopener">Docker初学者问题 - 如何在Docker容器中访问主机（HOST）</a>。</p>
+<p><a href="https://docs.docker.com/docker-for-mac/networking/#use-cases-and-workarounds" target="_blank" rel="noopener">官网文档说明</a>。</p>
+<blockquote>
+<p>特别注意：</p>
+<ol>
+<li>在 docker 引擎 18.03 以后才生效</li>
+<li>我这是 Mac 环境，别的环境没试过</li>
+<li>不建议用于生产</li>
+</ol>
+</blockquote>
+</li>
+</ol>
+
+        
+        <br>
+        <div id="comment-container">
+        </div>
+        <div id="disqus_thread"></div>
+
+        <div id="lv-container">
+        </div>
+
+    </div>
+</div>
+
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        
+
+        
+
+        
+
+        
+        <li>
+            <a target="_blank" href="https://github.com/wavelou">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-github"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+
+    </ul>
+    
+    <p>
+        <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+        </span>
+        <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+        </span>
+        Created By <a href="https://hexo.io/">Hexo</a>  Theme <a href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = "search.json"
+    window.hexo_root = "/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="/js/index.js"></script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+    <script>
+        /**
+         *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+         *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+        */
+        if( '' || '')
+        var disqus_config = function () {
+            this.page.url = '';  // Replace PAGE_URL with your page's canonical URL variable
+            this.page.identifier = ''; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+        };
+
+        (function() { // DON'T EDIT BELOW THIS LINE
+            var d = document, s = d.createElement('script');
+            s.src = 'https://airclouds-blog.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        })();
+    </script>
+
+
+
+</html>
